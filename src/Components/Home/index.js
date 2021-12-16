@@ -14,7 +14,7 @@ const Home = () => {
   const [welcomeText, setWelcomeText] = useState('');
   useEffect(() => {
     getOrganizationInformation()
-      .then((res) => console.log(res.data.welcome_text))
+      .then((res) => setWelcomeText(res.data.welcome_text))
       .catch((err) => {
         errorMessage(err);
       });
