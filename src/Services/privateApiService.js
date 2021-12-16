@@ -28,8 +28,12 @@ const privateGet = async (url, id, params = {}) => {
 };
 
 const privatePut = async (url, id, params) => {
-  const { data } = await axiosInstance.put(`${url}${id}`, params);
-  return data;
+  const getAuthorization = getAuthorizationHeader();
+  if(!getAuthorization) return;
+  return await axiosInstance
+    .put(`${url}${id}`, params)
+    .then((res)=>res.data)
+    .catch((err)=>console.log(err));
 };
 
 const privateDelete = async (url, id) => {
