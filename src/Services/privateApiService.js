@@ -63,6 +63,19 @@ const Get = () => {
     .catch((err) => console.log(err));
 };
 
+const privateGetReusable = async (url, id) => {
+  const idPlaceholder = id ? `/${id}` : "";
+
+  const authorizationHeader = getAuthorizationHeader();
+  if (!authorizationHeader.Authorization) throw new Error("No token");
+  try {
+    const { data } = await axios.get(`${url}${idPlaceholder}`)
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   privatePost,
   Get,
