@@ -28,7 +28,12 @@ const privateGet = async (url, id, params = {}) => {
 };
 
 const privatePut = async (url, id, params) => {
-  const { data } = await axiosInstance.put(`${url}${id}`, params);
+  const getAuthorization = getAuthorizationHeader();
+  if (!getAuthorization.Authorization)
+  const { data } = await axiosInstance
+    .put(`${url}${id}`, params)
+    .then((res)=>res.data)
+    .catch((err)=>console.log(err));
   return data;
 };
 
