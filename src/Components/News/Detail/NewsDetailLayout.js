@@ -12,7 +12,7 @@ import {
   CardMedia,
   Typography,
   CardActionArea,
-  Box
+  Box,
 } from "@mui/material";
 
 const Title = lazy(

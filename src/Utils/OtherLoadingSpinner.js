@@ -1,9 +1,9 @@
 import React from "react";
 import Loader from "react-loader-spinner";
 
-const LoadingSpinner = ({
-  type = "ThreeDots",
-  color = "black",
+const OtherLoadingSpinner = ({
+  type = "Puff",
+  color = "#007aff",
   height,
   width,
   visible,
@@ -19,4 +19,4 @@ const LoadingSpinner = ({
   );
 };
 
-export default LoadingSpinner;
+export default OtherLoadingSpinner;
