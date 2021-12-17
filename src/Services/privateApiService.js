@@ -76,7 +76,6 @@ const privateGetReusable = async (url, id) => {
     console.error(error)
   }
 }
-
 export {
   privatePost,
   Get,
