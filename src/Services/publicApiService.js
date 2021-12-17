@@ -22,13 +22,13 @@ const Get = () => {
     .catch((err) => console.log(err));
 };
 
-const Post = (route,body) => {
-  try{
-    const data = axios.post(`${route}`,body);
-    return data
-  }catch(error) {
-    console.log(error)
-  }
-}
+const Post = async (route,body) => {
+        try{
+          const data = await axios.post(route,body);
+          return data
+        }catch(error) {
+          return error
+        }
+      }
 
 export {Post, Get};
