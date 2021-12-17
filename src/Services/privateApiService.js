@@ -28,11 +28,22 @@ const privateGet = async (url, id, params = {}) => {
   });
   return data;
 };
+
 const privatePut = async (url, id, params) => {
   const getAuthorization = getAuthorizationHeader();
-  if (!getAuthorization.Authorization)
+  if (!getAuthorization.Authorization) return;
   const { data } = await axiosInstance
     .put(`${url}${id}`, params)
+    .then((res)=>res.data)
+    .catch((err)=>console.log(err));
+  return data;
+};
+
+const privatePatch = async (url, id, params) => {
+  const getAuthorization = getAuthorizationHeader();
+  if (!getAuthorization.Authorization) return;
+  const { data } = await axiosInstance
+    .patch(`${url}${id}`, params)
     .then((res)=>res.data)
     .catch((err)=>console.log(err));
   return data;
@@ -88,4 +99,5 @@ export {
   privateGet,
   privateDelete,
   privatePut,
+  privatePatch
 };
