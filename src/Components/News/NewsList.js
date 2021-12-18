@@ -7,7 +7,7 @@ import { Container } from "@mui/material";
 import LoadingSpinner from "../../Utils/loadingSpinner";
 import * as newsActions from "../../app/NewsReducer/newsReducer";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom"
 const NewsList = () => {
   const [loading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
@@ -35,12 +35,14 @@ const NewsList = () => {
             {newsListHasValues ? (
               allNews.map((news) => {
                 return (
+                  <Link to={`novedades/${news.id}`}>
                   <CustomCard
                     key={news.id}
                     title={news.name}
                     img={news.image}
                     description={news.content}
                   />
+                  </Link>
                 );
               })
             ) : (
