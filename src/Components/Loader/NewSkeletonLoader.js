@@ -72,13 +72,14 @@ const ParagraphDiv = styled.div`
 `
 
 const NewSkeleton = ({ type, width, height, align }) => {
+    // ESTILOS GLOBALES A TODOS LOS ELEMENTOS SKELETON
     const skeletonStyles = {
         backgroundColor: "hsl(275, 0%, 73%)",
         marginBottom: 0.75, // En "rem".
         flexGap: 0.75, // En "rem".
         paragraphsHeight: 0.75, // En "rem".
     }
-    // ESTILOS GLOBALES A TODOS LOS ELEMENTOS SKELETON
+    // DEFAULTS PROPS de los VALORES "width" y "height", DEPENDIENDO DEL TIPO RECIBIDO EN "type"
     const skeletonDefaultProps = {
         text: {
             width: 350,
@@ -93,8 +94,9 @@ const NewSkeleton = ({ type, width, height, align }) => {
             height: 150
         }
     }
-    // DEFAULTS PROPS de los VALORES "width" y "height", DEPENDIENDO DEL TIPO RECIBIDO EN "type"
 
+    /* DEPENDIENDO DEL VALOR INGRESADO POR EL USUARIO EN LA PROP "align", LE ASIGNO A ESTA SU
+    RESPECTIVO VALOR CSS (ALINEADO HORIZONTAL) */
     switch(align)
     {
         case "start":
@@ -107,10 +109,8 @@ const NewSkeleton = ({ type, width, height, align }) => {
             align = `0 0 ${skeletonStyles.marginBottom}rem auto`
             break
         default:
-            align = `0 auto ${skeletonStyles.marginBottom} 0`
+            align = `0 auto ${skeletonStyles.marginBottom}rem 0`
     }
-    /* DEPENDIENDO DEL VALOR INGRESADO POR EL USUARIO EN LA PROP "align", LE ASIGNO A ESTA SU
-    RESPECTIVO VALOR CSS (ALINEADO HORIZONTAL) */
     
     switch(type)   
     {
