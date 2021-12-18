@@ -9,22 +9,19 @@ import * as newsActions from "../../app/NewsReducer/newsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 const NewsList = () => {
-  const [loading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+
   const allNews = useSelector((state) => state.news.data);
+  const isLoading = useSelector((state) => state.news.loading);
 
   useEffect(() => {
     dispatch(newsActions.getAll());
   }, []);
 
-  useEffect(() => {
-    allNews && setIsLoading(false);
-  }, [allNews]);
-
   const newsListHasValues = listHasValues(allNews);
   return (
     <Container className="ContainerList">
-      {loading ? (
+      {isLoading ? (
         <div className="spinner">
           <LoadingSpinner />
         </div>
