@@ -24,12 +24,13 @@ const Title = lazy(
 
 const NewsDetailLayout = () => {
   const [newsDescription, setNewsDescription] = useState("");
-  const [loading, setIsLoading] = useState(false);
+
 
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const news = useSelector((state) => state.news.currentNews);
+  const isLoading = useSelector((state) => state.news.loading);
 
   const stripedHtml = useCallback(() => {
     news.content && setNewsDescription(news.content.replace(/<[^>]+>/g, ""));
@@ -38,12 +39,11 @@ const NewsDetailLayout = () => {
   useEffect(() => {
     dispatch(newsActions.getById(id));
     stripedHtml();
-    setIsLoading(false);
   }, [id, stripedHtml]);
 
   return (
     <div>
-      {loading
+      {isLoading
       ? <Box className="spinner" sx={{display:'flex',flexDirection:'row',justifyContent:'center',zIndex:99,bgcolor:'transparent'}}>
           <LoadingSpinner />
         </Box>
