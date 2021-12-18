@@ -19,6 +19,7 @@
     "ckeditor": "4.12.1",
     "date-fns": "2.23.0",
     "formik": "2.2.6",
+    "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-awesome-reveal": "^3.8.1",
     "react-dom": "17.0.2",
@@ -37,6 +38,7 @@
     "redux": "4.1.0",
     "redux-persist": "6.0.0",
     "redux-thunk": "2.3.0",
+    "styled-components": "^5.3.3",
     "sweetalert2": "^10.16.6",
     "swiper": "6.8.4",
     "web-vitals": "1.0.1"
