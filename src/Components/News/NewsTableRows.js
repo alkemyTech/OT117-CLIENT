@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { getById } from "../../Services/newsServices";
 import Swal from "sweetalert2";
 
-const NewsTableRows = () => {
+const NewsTableRows = ({loadingValue}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,6 +22,7 @@ const NewsTableRows = () => {
   const onDelete = (id) => dispatch(newsActions.deletebyId(id));
 
   const news = useSelector((state) => state.news.data);
+  const isLoading = useSelector((state) => state.news.loading);
 
   const newsDeleted = () => {
     Swal.fire("Noticia Eliminada");
@@ -32,9 +33,15 @@ const NewsTableRows = () => {
     dispatch(cleanCurrentState());
   }, []);
 
+  useEffect(()=>{
+    if(!isLoading) loadingValue(false);
+  },[isLoading])
+
   return (
     <>
-      {news.map((element) => (
+      {
+      news &&
+         news.map((element) => (
         <TableRow key={element.id}>
           <TableCell component="th" scope="row">
             {element.name}

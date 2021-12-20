@@ -1,3 +1,4 @@
+import React, {useState} from 'react'
 import {
   TableContainer,
   Table,
@@ -13,6 +14,7 @@ import { createNewsObject } from "../../Services/newsServices";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { Reveal, Fade } from "react-awesome-reveal";
 import TitleBackoffice from "../Backoffice/TitleBackoffice";
+import LoadingSpinner from "../../Utils/loadingSpinner";
 
 const onEdit = (id) => console.log(`Editing a news with id:${id}`);
 const onDelete = (id) => console.log(`Deleting a news with id:${id}`);
@@ -24,6 +26,7 @@ const newsList = [
 ];
 
 const NewsListEditTable = () => {
+  const [loading,setLoading] = useState(true);
   return (
     <>
       <TitleBackoffice title={"Edición de Noticias"} />
@@ -58,11 +61,16 @@ const NewsListEditTable = () => {
                 newsList={newsList}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                loadingValue={(value)=>setLoading(value)}
               />
             </TableBody>
           </Table>
         </TableContainer>
       </Fade>
+      {loading &&
+        <div className="spinner">
+            <LoadingSpinner />
+        </div>}
     </>
   );
 };

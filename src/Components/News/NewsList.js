@@ -29,16 +29,17 @@ const NewsList = () => {
         <div>
           <Title title="Novedades" />
           <ul className="list-grid-container ">
-            {newsListHasValues ? (
+            {newsListHasValues && allNews ? (
               allNews.map((news) => {
                 return (
-                  <Link to={`novedades/${news.id}`}>
-                  <CustomCard
-                    key={news.id}
-                    title={news.name}
-                    img={news.image}
-                    description={news.content}
-                  />
+                  <Link to={`novedades/${news.id}`}
+                  style={{textDecoration:'none'}}>
+                    <CustomCard
+                      key={news.id}
+                      title={news.name}
+                      img={news.image}
+                      description={news.content}
+                    />
                   </Link>
                 );
               })
