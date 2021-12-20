@@ -7,7 +7,7 @@ import Home from "../Home";
 import AboutUs from "../About/AboutUs";
 import ListSlides from "../Slides/ListSlides/ListSlides";
 import ContactForm from "../Contact/ContactForm";
-import NewsList from "../News/NewsList";
+import NewsList from "../News/NewList/NewsList";
 import Donation from "../Donations/Donation";
 import Thanks from "../Donations/Thanks";
 import SchoolCampaign from "../../Campaigns/School/SchoolCampaign";
