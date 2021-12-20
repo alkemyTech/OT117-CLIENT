@@ -23,12 +23,29 @@ axiosInstance.interceptors.request.use((config) => {
 
 const privateGet = async (url, id, params = {}) => {
   const idPlaceholder = id ? `/${id}` : "";
-  const { data } = axiosInstance.get(`${url}${idPlaceholder}`, { params });
+  const { data } = await axiosInstance.get(`${url}${idPlaceholder}`, {
+    params,
+  });
   return data;
 };
 
 const privatePut = async (url, id, params) => {
-  const { data } = await axiosInstance.put(`${url}${id}`, params);
+  const getAuthorization = getAuthorizationHeader();
+  if (!getAuthorization.Authorization) return;
+  const { data } = await axiosInstance
+    .put(`${url}${id}`, params)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return data;
+};
+
+const privatePatch = async (url, id, params) => {
+  const getAuthorization = getAuthorizationHeader();
+  if (!getAuthorization.Authorization) return;
+  const { data } = await axiosInstance
+    .patch(`${url}${id}`, params)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
   return data;
 };
 
@@ -69,13 +86,12 @@ const privateGetReusable = async (url, id) => {
   const authorizationHeader = getAuthorizationHeader();
   if (!authorizationHeader.Authorization) throw new Error("No token");
   try {
-    const { data } = await axios.get(`${url}${idPlaceholder}`)
-    return data
+    const { data } = await axios.get(`${url}${idPlaceholder}`);
+    return data;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
-
+};
 export {
   privatePost,
   Get,
@@ -83,4 +99,5 @@ export {
   privateGet,
   privateDelete,
   privatePut,
+  privatePatch,
 };

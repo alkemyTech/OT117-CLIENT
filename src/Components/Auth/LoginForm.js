@@ -18,6 +18,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
+  const [authorization, setAuthorization] = useState(true);
 
   const handleChange = (e) => {
     if (validValue(email, e.target.value)) {
@@ -33,11 +34,17 @@ const LoginForm = () => {
     if (e.target.name === "password") {
       setInitialValues({ ...initialValues, password: e.target.value });
       setHasErrors(false);
-    }}
+    }
+  };
   const loginRequest = async () => {
     try {
-      const {data:{ data }} = await loginUser(initialValues);
-      setUserName(data.user.name);
+      const data = await loginUser(initialValues);
+      console.log("Esta es la data en el form", data.data.error);
+      if (data.data.error === "No token") {
+        setAuthorization(false);
+      } else {
+        setUserName(data.user.name);
+      }
       return data;
     } catch (error) {
       console.log(error);
@@ -46,13 +53,16 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { token } = await loginRequest();
-    localStorage.setItem("token", token);
-    localStorage.setItem('userName','Juan')
+    console.log("TOKEN", token);
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("userName", "nombreHardcodeado");
+    }
     setLoading(true);
-    setTimeout(() => {
-      push("/");
-    }, 1500);
   };
+  if (!authorization) {
+    return <h1>No pudiste obtener el token</h1>;
+  }
 
   return (
     <div
@@ -101,7 +111,7 @@ const LoginForm = () => {
             Ingresar
           </Button>
         )}
-        {loading && <Alert severity="success">{userName}</Alert>}
+        {/* {loading && <Alert severity="success">{userName}</Alert>} */}
       </form>
     </div>
   );
