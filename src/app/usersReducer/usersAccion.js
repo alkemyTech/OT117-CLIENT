@@ -1,15 +1,15 @@
-import axios from "axios";
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import axios from "axios"
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const URL ='http://ongapi.alkemy.org/api/users';
 
 export const createUser = createAsyncThunk(
   "users/createUser",
   async (user) => {
-    const { data } =await axios.post(`${URL}`,user);
-    return data.data;
-  }
-);
+  const { data } =await axios.post(`${URL}`,user);
+  return data.data;
+      }
+)
 
 export const updateUser = createAsyncThunk(
   "users/updateUser",
