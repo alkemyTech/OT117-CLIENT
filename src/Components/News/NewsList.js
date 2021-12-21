@@ -7,24 +7,21 @@ import { Container } from "@mui/material";
 import LoadingSpinner from "../../Utils/loadingSpinner";
 import * as newsActions from "../../app/NewsReducer/newsReducer";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom"
 const NewsList = () => {
-  const [loading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+
   const allNews = useSelector((state) => state.news.data);
+  const isLoading = useSelector((state) => state.news.loading);
 
   useEffect(() => {
     dispatch(newsActions.getAll());
   }, []);
 
-  useEffect(() => {
-    allNews && setIsLoading(false);
-  }, [allNews]);
-
   const newsListHasValues = listHasValues(allNews);
   return (
     <Container className="ContainerList">
-      {loading ? (
+      {isLoading ? (
         <div className="spinner">
           <LoadingSpinner />
         </div>
@@ -32,15 +29,18 @@ const NewsList = () => {
         <div>
           <Title title="Novedades" />
           <ul className="list-grid-container ">
-            {newsListHasValues ? (
+            {newsListHasValues && allNews ? (
               allNews.map((news) => {
                 return (
-                  <CustomCard
-                    key={news.id}
-                    title={news.name}
-                    img={news.image}
-                    description={news.content}
-                  />
+                  <Link to={`novedades/${news.id}`}
+                  style={{textDecoration:'none'}}>
+                    <CustomCard
+                      key={news.id}
+                      title={news.name}
+                      img={news.image}
+                      description={news.content}
+                    />
+                  </Link>
                 );
               })
             ) : (
