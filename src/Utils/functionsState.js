@@ -1,10 +1,28 @@
-export const modifyElement = (array, newElement) => {
-    let element= array.find(e=>e.id===newElement.id)
-    element=newElement
-    return array;
-};
+const modifyUser = (array, modifiedUser) => {
+    let userFound = array.find(user => user.id === modifiedUser.id)
+    if (userFound)
+    {
+        userFound = modifiedUser
+    }
+    return array
+}
 
-export const removeElement = (array, id) => {
-    let newArray= array.filter(e=> e.id !== id)
-    return newArray;
-};
+const removeUser = (array, userId) => {
+    const userFound = array.find(user => user.id === userId)
+    if (userFound)
+    {
+        const newArray = array.filter(user=> user.id !== userId)
+        return newArray
+    }
+}
+
+const addUser = (array, newUser) => {
+    const userFound = array.find(user => user.id === newUser.id)
+    if (!userFound)
+    {
+        const newArray = array.concat(newUser)
+        return newArray
+    }
+}
+
+export { addUser, removeUser, modifyUser }
