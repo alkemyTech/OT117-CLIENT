@@ -41,5 +41,5 @@ const Info = Swal.mixin({
   timerProgressBar: true,
 });
 export const InfoAlert = (info) => {
-  return Confirm.fire({ icon: 'info', text: `${info}` });
+  return Info.fire({ icon: 'info', text: `${info}` });
 };
