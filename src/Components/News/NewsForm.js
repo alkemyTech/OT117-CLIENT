@@ -40,7 +40,6 @@ const NewsForm = () => {
   const sendNews = async () => {
     const {image, ...withOutImage} = news;
     const imageCondition = () => news.image === currentNews.image ? withOutImage : news;
-    console.log(imageCondition())
     dispatch(newsActions.createOrUpdate({ newsid, news:imageCondition()}));
     dispatch(newsActions.cleanCurrentState());
     setTimeout(() => {
@@ -98,7 +97,7 @@ const NewsForm = () => {
         name="image"
         value={undefined}
         onChange={handleChange}
-        style={{ color: "white" }}
+        style={{ color: "black" }}
       />
       {news.image && (
         <img style={{ width: "100px" }} src={news.image} alt="img" />
