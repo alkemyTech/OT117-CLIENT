@@ -48,6 +48,7 @@ const updateCategory = (id, categoryData) => {
 };
 const createOrUpdate = async (categoryData, id) => {
   const allCategories = await getCategories();
+  console.log("ALLCATEGORIES", allCategories);
   const sameData = allCategories.data.find((category) => category.id === id);
   try {
     if (sameData) {
