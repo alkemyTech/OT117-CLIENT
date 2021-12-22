@@ -37,7 +37,7 @@ const NewsForm = () => {
     sendNews();
   };
 
-  const sendNews = async () => {
+  const sendNews = () => {
     const {image, ...withOutImage} = news;
     const imageCondition = () => news.image === currentNews.image ? withOutImage : news;
     dispatch(newsActions.createOrUpdate({ newsid, news:imageCondition()}));
