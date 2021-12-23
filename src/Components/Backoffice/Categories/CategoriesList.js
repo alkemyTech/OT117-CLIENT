@@ -25,8 +25,9 @@ const CategoriesList = () => {
 
   const history = useHistory();
 
-  const handleEditClick = (id) =>
+  const handleEditClick = (id) => {
     history.push(`/backoffice/categories/edit/${id}`);
+  };
 
   const handleDeleteClick = (idCategory) => {
     //DELETE API SERVICE

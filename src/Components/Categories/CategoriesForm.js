@@ -20,6 +20,8 @@ const validate = (values) => {
 
 const CategoriesForm = (props) => {
   const { idforEdit } = props;
+  const idCat = props.match.params.categoryId;
+
   const [isLoading, setisLoading] = useState(true);
   const [category, setcategory] = useState({
     name: "",
@@ -56,7 +58,7 @@ const CategoriesForm = (props) => {
     initialValues: category,
     validate,
     onSubmit: (values) => {
-      services.createOrUpdate(idforEdit, values);
+      services.createOrUpdate(idCat, values);
     },
   });
 
