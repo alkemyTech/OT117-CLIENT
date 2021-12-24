@@ -38,8 +38,8 @@ const Carousel = () => {
         parallax={true}
         loop={true}
         navigation={true}
-        Autoplay={true}
-        autoplay={{
+        autoPlay={true}
+        autoPlay={{
           delay: 5000,
         }}
       >
@@ -91,7 +91,9 @@ const Carousel = () => {
                     }}
                     data-swiper-parallax="-100"
                   >
-                    <p>{item.description && setCKEditorText(item, "description")}</p>
+                    <p>
+                      {item.description && setCKEditorText(item, "description")}
+                    </p>
                   </Box>
                 </Box>
               </SwiperSlide>

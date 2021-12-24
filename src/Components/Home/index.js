@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Carousel from '../Carousel/Carousel';
-import Footer from '../Footer/Footer';
-import { getOrganizationInformation } from '../../Services/OrganizationInformation';
-import Header from '../Layout/Header/Header';
-import CardsSection from './CardsSection';
-import * as newsService from '../../Services/newsServices';
-import * as testimonialService from '../../Services/testimonialService';
-import { errorMessage } from '../error';
-import SkeletonLoader from '../Loader/SkeletonLoader';
-import LoadingSpinner from '../../Utils/loadingSpinner';
+import React, { useEffect, useState } from "react";
+import Carousel from "../Carousel/Carousel";
+import Footer from "../Footer/Footer";
+import { getOrganizationInformation } from "../../Services/OrganizationInformation";
+import Header from "../Layout/Header/Header";
+import CardsSection from "./CardsSection";
+import * as newsService from "../../Services/newsServices";
+import * as testimonialService from "../../Services/testimonialService";
+import { errorMessage } from "../error";
+import SkeletonLoader from "../Loader/SkeletonLoader";
+import LoadingSpinner from "../../Utils/loadingSpinner";
 
 const Home = () => {
-  const [welcomeText, setWelcomeText] = useState('');
+  const [welcomeText, setWelcomeText] = useState("");
   useEffect(() => {
     getOrganizationInformation()
       .then((res) => setWelcomeText(res.data.welcome_text))
@@ -19,23 +19,22 @@ const Home = () => {
         errorMessage(err);
       });
   }, []);
-
   return (
     <>
-      {/* <h1 style={{ textAlign: "center" }}>{welcomeText}</h1> */}
+      <h1 style={{ textAlign: "center" }}>{welcomeText}</h1>
       <section
         style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
+          maxWidth: "1400px",
+          margin: "0 auto",
         }}
       >
         <Carousel />
         <CardsSection
           title="Últimas novedades"
-          clickeable={{ to: '/novedades' }}
+          clickeable={{ to: "/novedades" }}
           getInformation={newsService.getAll}
           slices={3}
-          button={{ text: 'Ver todas', to: '/novedades' }}
+          button={{ text: "Ver todas", to: "/novedades" }}
         />
 
         <CardsSection

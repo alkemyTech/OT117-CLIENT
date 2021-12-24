@@ -1,9 +1,9 @@
-import { Container, Grid, Button, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import CustomCard from '../Card/CustomCard';
-import { setCKEditorText } from '../../Components/common/ckEditor/setCKEditorText';
-import LoadingSpinner from '../../Utils/loadingSpinner';
+import { Container, Grid, Button, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import CustomCard from "../Card/CustomCard";
+import { setCKEditorText } from "../../Components/common/ckEditor/setCKEditorText";
+import LoadingSpinner from "../../Utils/loadingSpinner";
 
 const CardsSection = ({
   title,
@@ -26,9 +26,9 @@ const CardsSection = ({
   return (
     <Container
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         my: 1,
         mb: 7,
         mt: 9,
@@ -39,14 +39,14 @@ const CardsSection = ({
       <Grid container sx={{ m: 3 }}>
         {cardsInfo &&
           cardsInfo.map((card) => (
-            <Grid xs={4}>
+            <Grid xs={4} key={card.id}>
               <CustomCard
                 title={card.name}
                 img={card.image}
                 route={clickeable && `${clickeable.to}/${card.id}`}
                 description={
-                  (card.content && setCKEditorText(card, 'content')) ||
-                  (card.description && setCKEditorText(card, 'description'))
+                  (card.content && setCKEditorText(card, "content")) ||
+                  (card.description && setCKEditorText(card, "description"))
                 }
                 lines={card.description && 3}
               />
