@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -7,22 +7,22 @@ import {
   TableHead,
   TableRow,
   Button,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import MembersResultsItem from "./MembersResultsItem";
-import { useDispatch, useSelector } from "react-redux";
-import { getAll } from "../../../app/MembersReducer/membersReducer";
-import TitleBackoffice from "../../Backoffice/TitleBackoffice";
-import { useHistory } from "react-router-dom";
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import MembersResultsItem from './MembersResultsItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAll } from '../../../app/MembersReducer/membersReducer';
+import TitleBackoffice from '../../Backoffice/TitleBackoffice';
+import { useHistory } from 'react-router-dom';
 const MembersResults = () => {
   const dispatch = useDispatch();
   const members = useSelector((state) => state.members.data);
   const showMembers = () =>
-    members.map((member) => (
-      <MembersResultsItem
-        item={member}
-      />
-    ));
+    members.map((member) => <MembersResultsItem item={member} />);
+
+  useEffect(() => {
+    dispatch(getAll());
+  }, [members]);
 
   useEffect(() => {
     dispatch(getAll());
@@ -30,7 +30,7 @@ const MembersResults = () => {
 
   return (
     <>
-      <TitleBackoffice title={"Edición de Miembros"} />
+      <TitleBackoffice title={'Edición de Miembros'} />
       <TableContainer className="TableContainer">
         <Table className="TableFinal">
           <TableHead className="TableRowModify">

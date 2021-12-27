@@ -1,16 +1,21 @@
-import axios from "axios";
-import { getAuthorizationHeader } from "./privateApiService";
+import axios from 'axios';
+import { getAuthorizationHeader } from './privateApiService';
 
 const baseURL = process.env.REACT_APP_API_URL_MEMBERS;
 const authorizationHeader = { headers: getAuthorizationHeader() };
 const getMembers = async () => {
-  const  response  = await axios.get(`${baseURL}`, authorizationHeader);
-  return response.data.data
+  const response = await axios.get(`${baseURL}`, authorizationHeader);
+  return response.data.data;
 };
 
 const createMember = (data) => {
-  const response = axios.post(`${baseURL}`, data, authorizationHeader);
-  return response;
+  try {
+    return axios
+      .post(`${baseURL}`, data, authorizationHeader)
+      .then((res) => console.log(res));
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const getMember = (id) => {
@@ -19,8 +24,9 @@ const getMember = (id) => {
 };
 
 const updateMember = (id, data) => {
-  const response = axios.put(`${baseURL}/${id}`, data, authorizationHeader);
-  return response;
+  axios
+    .put(`${baseURL}/${id}`, data, authorizationHeader)
+    .then((res) => console.log(res));
 };
 
 const removeMember = (id) => {
@@ -37,4 +43,3 @@ const membersApiActions = {
 };
 
 export default membersApiActions;
-

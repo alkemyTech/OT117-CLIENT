@@ -1,25 +1,40 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import membersApiActions from '../../Services/membersService'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import membersApiActions from '../../Services/membersService';
 
 const membersInitialState = {
   loading: false,
   data: [],
-  error: "",
-  currentMember:{
-   name: "",
-  description: "",
-  facebookUrl: ""
+  error: '',
+  currentMember: {
+    name: '',
+    description: '',
+    facebookUrl: '',
   },
 };
 
-export const getAll = createAsyncThunk("news/getAll", membersApiActions.getMembers);
-export const getById = createAsyncThunk("news/getById", membersApiActions.getMember);
-export const create = createAsyncThunk("news/create", membersApiActions.createMember);
-export const update = createAsyncThunk("news/update", membersApiActions.updateMember);
-export const deletebyId = createAsyncThunk("news/delete", membersApiActions.removeMember );
+export const getAll = createAsyncThunk(
+  'news/getAll',
+  membersApiActions.getMembers
+);
+export const getById = createAsyncThunk(
+  'news/getById',
+  membersApiActions.getMember
+);
+export const create = createAsyncThunk(
+  'news/create',
+  membersApiActions.createMember
+);
+export const update = createAsyncThunk(
+  'news/update',
+  membersApiActions.updateMember
+);
+export const deletebyId = createAsyncThunk(
+  'news/delete',
+  membersApiActions.removeMember
+);
 
 const membersSlice = createSlice({
-  name: "members",
+  name: 'members',
   initialState: membersInitialState,
   extraReducers: {
     [getAll.pending]: (state, action) => {

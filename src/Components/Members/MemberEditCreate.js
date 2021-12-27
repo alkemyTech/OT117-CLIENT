@@ -1,38 +1,43 @@
-import React, { useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React, { useEffect, useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {
   isValidImage,
   isValidSocialMedia,
   isValidNameMembers,
-} from "../../Utils/validation";
-import { handleCKeditorForm } from "../../Utils/handlers";
-import { showErrorAlert, showSuccessAlert } from "../../Utils/alerts";
-import "../FormStyles.css";
+} from '../../Utils/validation';
+import { handleCKeditorForm } from '../../Utils/handlers';
+import { showErrorAlert, showSuccessAlert } from '../../Utils/alerts';
+import '../FormStyles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as membersActions from '../../app/MembersReducer/membersReducer';
 
 const EditCreateMembers = () => {
   const [member, setMember] = useState({
-    name: "",
-    description: "",
-    imageMember: "",
-    social_media: "",
+    name: '',
+    id: '341',
+    description: '',
+    image: '',
+    facebookUrl: '',
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     switch (e.target.name) {
-      case "name":
+      case 'name':
         setMember({ ...member, name: e.target.value });
         break;
-      case "image":
+      case 'image':
         isValidImage(e.target.files[0])
           ? setMember({ ...member, imageMember: e.target.value })
           : (showErrorAlert(
-              "Select an image type png or jpg, the file you selected is of type" +
+              'Select an image type png or jpg, the file you selected is of type' +
                 e.target.files[0].type
             ),
-            setMember({ ...member, imageMember: "" }));
+            setMember({ ...member, imageMember: '' }));
         break;
-      case "social_media":
+      case 'social_media':
         setMember({ ...member, social_media: e.target.value });
         break;
     }
@@ -41,21 +46,21 @@ const EditCreateMembers = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleError()) {
-      console.log(member);
-      showSuccessAlert("Member created");
+      showSuccessAlert('Member created') &
+        dispatch(membersActions.update(member));
     }
   };
 
   const handleError = () => {
     switch (true) {
       case isValidNameMembers(member.name):
-        showErrorAlert("The name is not valid");
+        showErrorAlert('The name is not valid');
         break;
-      case member.description === "":
-        showErrorAlert("The description is required");
+      case member.description === '':
+        showErrorAlert('The description is required');
         break;
       case !isValidSocialMedia(member.social_media):
-        showErrorAlert("The social media is not valid");
+        showErrorAlert('The social media is not valid');
         break;
       default:
         return true;
@@ -80,7 +85,7 @@ const EditCreateMembers = () => {
         editor={ClassicEditor}
         data={member.description}
         onChange={(event, editor) =>
-          handleCKeditorForm(editor, "description", setMember, member)
+          handleCKeditorForm(editor, 'description', setMember, member)
         }
       />
       <label>Image</label>
