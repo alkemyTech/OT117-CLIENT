@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://ongapi.alkemy.org/api/categories";
+const baseURL = process.env.REACT_APP_BASE_URL_CATEGORIES;
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
@@ -9,7 +9,6 @@ const headers = {
 const getCategories = async () => {
   try {
     const { data } = await axios.get(`${baseURL}`);
-    console.log("data extraida", data.data);
     return data.data;
   } catch (error) {
     console.error(error);
