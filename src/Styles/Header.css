@@ -1,0 +1,22 @@
+
+@media screen and (max-width: 768px){
+    .ong-logo{
+        display:none;
+    }
+}
+
+.slogan{
+    margin: 0 5px;
+    align-items: center;
+    padding: 0 0 0 10px;
+}
+
+@media screen and (max-width: 1200px){
+    .slogan{
+        display:none;
+    }
+}
+
+#toys-logo,#materials-logo{
+    margin: 10px 0;
+}
