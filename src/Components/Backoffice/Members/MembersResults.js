@@ -22,10 +22,6 @@ const MembersResults = () => {
 
   useEffect(() => {
     dispatch(getAll());
-  }, [members]);
-
-  useEffect(() => {
-    dispatch(getAll());
   }, []);
 
   return (

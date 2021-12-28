@@ -15,11 +15,11 @@ const createMember = async (data) => {
   return response;
 };
 
-const updateOrCreate = async (member, id) => {
+const updateOrCreate = async (member, memberId) => {
   try {
-    const idExist = (await id) && getMember(id);
+    const idExist = (await memberId) && getMember(memberId);
     if (idExist) {
-      const data = await updateMember(member, id);
+      const data = await updateMember(member, memberId);
       return data;
     } else if (!idExist && member) {
       const data = await createMember(member);
@@ -35,7 +35,7 @@ const getMember = async (id) => {
   return response;
 };
 
-const updateMember = async (id, data) => {
+const updateMember = async (data, id) => {
   const response = await axios.put(
     `${baseURL}/${id}`,
     data,

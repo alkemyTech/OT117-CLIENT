@@ -28,9 +28,11 @@ export const create = createAsyncThunk(
 export const updateOrCreate = createAsyncThunk(
   'members/updateOrCreate',
   (member) =>
-    membersApiActions.updateOrCreate(member.member, member.id).catch((err) => {
-      err;
-    })
+    membersApiActions
+      .updateOrCreate(member.member, member.memberId)
+      .catch((err) => {
+        err;
+      })
 );
 
 export const update = createAsyncThunk(

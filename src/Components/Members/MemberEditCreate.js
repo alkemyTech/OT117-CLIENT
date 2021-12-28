@@ -23,7 +23,9 @@ const EditCreateMembers = () => {
     linkedinUrl: '',
   });
 
-  const { id } = useParams();
+  const { memberId } = useParams();
+
+  const social_media = [member.facebookUrl, member.linkedinUrl];
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -50,7 +52,7 @@ const EditCreateMembers = () => {
           setMember({ ...member, facebookUrl: e.target.value });
         } else if (
           e.target.value &&
-          e.target.value.includes('https://www.facebook.com/')
+          e.target.value.includes('https://www.linkedin.com/')
         ) {
           setMember({ ...member, linkedinUrl: e.target.value });
         }
@@ -63,8 +65,9 @@ const EditCreateMembers = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleError()) {
-      showSuccessAlert('Member created') &
-        dispatch(membersActions.updateOrCreate({ member, id }));
+      ((memberId === undefined && showSuccessAlert('Member created')) ||
+        (memberId !== undefined && showSuccessAlert('Member update'))) &
+        dispatch(membersActions.updateOrCreate({ member, memberId }));
     }
   };
 
@@ -76,9 +79,9 @@ const EditCreateMembers = () => {
       case member.description === '':
         showErrorAlert('The description is required');
         break;
-      // case !isValidSocialMedia(member.social_media):
-      //   showErrorAlert('The social media is not valid');
-      //   break;
+      case !isValidSocialMedia(social_media):
+        showErrorAlert('The social media is not valid');
+        break;
       default:
         return true;
     }

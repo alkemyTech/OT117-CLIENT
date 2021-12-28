@@ -18,8 +18,7 @@ const MembersResultsItem = ({ item }) => {
       history.push(`/backoffice/members/edit/${id}`);
     });
   };
-  const onDelete = (id) =>
-    dispatch(membersActions.deletebyId(id)) && location.reload();
+  const onDelete = (id) => dispatch(membersActions.deletebyId(id));
 
   const members = useSelector((state) => state.members.data);
 
