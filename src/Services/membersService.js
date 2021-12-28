@@ -8,25 +8,40 @@ const getMembers = async () => {
   return response.data.data;
 };
 
-const createMember = (data) => {
+const createMember = async (data) => {
+  const response = await axios
+    .post(`${baseURL}`, data, authorizationHeader)
+    .catch((err) => console.log(err));
+  return response;
+};
+
+const updateOrCreate = async (member, id) => {
   try {
-    return axios
-      .post(`${baseURL}`, data, authorizationHeader)
-      .then((res) => console.log(res));
+    const idExist = (await id) && getMember(id);
+    if (idExist) {
+      const data = await updateMember(member, id);
+      return data;
+    } else if (!idExist && member) {
+      const data = await createMember(member);
+      return data;
+    }
   } catch (err) {
     console.log(err);
   }
 };
 
-const getMember = (id) => {
-  const response = axios.get(`${baseURL}/${id}`, authorizationHeader);
+const getMember = async (id) => {
+  const response = await axios.get(`${baseURL}/${id}`, authorizationHeader);
   return response;
 };
 
-const updateMember = (id, data) => {
-  axios
-    .put(`${baseURL}/${id}`, data, authorizationHeader)
-    .then((res) => console.log(res));
+const updateMember = async (id, data) => {
+  const response = await axios.put(
+    `${baseURL}/${id}`,
+    data,
+    authorizationHeader
+  );
+  return response;
 };
 
 const removeMember = (id) => {
@@ -40,6 +55,7 @@ const membersApiActions = {
   getMember,
   updateMember,
   removeMember,
+  updateOrCreate,
 };
 
 export default membersApiActions;

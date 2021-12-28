@@ -13,23 +13,32 @@ const membersInitialState = {
 };
 
 export const getAll = createAsyncThunk(
-  'news/getAll',
+  'members/getAll',
   membersApiActions.getMembers
 );
 export const getById = createAsyncThunk(
-  'news/getById',
+  'members/getById',
   membersApiActions.getMember
 );
 export const create = createAsyncThunk(
-  'news/create',
+  'members/create',
   membersApiActions.createMember
 );
+
+export const updateOrCreate = createAsyncThunk(
+  'members/updateOrCreate',
+  (member) =>
+    membersApiActions.updateOrCreate(member.member, member.id).catch((err) => {
+      err;
+    })
+);
+
 export const update = createAsyncThunk(
-  'news/update',
+  'members/update',
   membersApiActions.updateMember
 );
 export const deletebyId = createAsyncThunk(
-  'news/delete',
+  'members/delete',
   membersApiActions.removeMember
 );
 
@@ -91,6 +100,30 @@ const membersSlice = createSlice({
       };
     },
     [create.rejected]: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    },
+    [updateOrCreate.pending]: (state, action) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    [updateOrCreate.fulfilled]: (state, action) => {
+      const payloadNews = state.data.findIndex(
+        (element) => element.id == action.payload.id
+      );
+      if (payloadNews >= 0) {
+        state.data[payloadNews] = action.payload;
+      } else {
+        console.log('esta llegando');
+        state.data = [...state.data, action.payload];
+      }
+    },
+    [updateOrCreate.rejected]: (state, action) => {
       return {
         ...state,
         loading: false,

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as membersActions from '../../app/MembersReducer/membersReducer';
 import {
   isValidImage,
   isValidSocialMedia,
@@ -9,19 +10,20 @@ import {
 import { handleCKeditorForm } from '../../Utils/handlers';
 import { showErrorAlert, showSuccessAlert } from '../../Utils/alerts';
 import '../FormStyles.css';
-import { useDispatch, useSelector } from 'react-redux';
-import * as membersActions from '../../app/MembersReducer/membersReducer';
+import { useDispatch } from 'react-redux';
+import { URLFileFormater } from '../../Utils/formatters';
+import { useParams } from 'react-router-dom';
 
 const EditCreateMembers = () => {
   const [member, setMember] = useState({
     name: '',
-    id: '341',
     description: '',
     image: '',
     facebookUrl: '',
+    linkedinUrl: '',
   });
 
-  const dispatch = useDispatch();
+  const { id } = useParams();
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -30,24 +32,39 @@ const EditCreateMembers = () => {
         break;
       case 'image':
         isValidImage(e.target.files[0])
-          ? setMember({ ...member, imageMember: e.target.value })
+          ? setMember({
+              ...member,
+              image: URLFileFormater(e, member, setMember, 'image'),
+            })
           : (showErrorAlert(
               'Select an image type png or jpg, the file you selected is of type' +
                 e.target.files[0].type
             ),
-            setMember({ ...member, imageMember: '' }));
+            setMember({ ...member, image: '' }));
         break;
       case 'social_media':
-        setMember({ ...member, social_media: e.target.value });
+        if (
+          e.target.value &&
+          e.target.value.includes('https://www.facebook.com/')
+        ) {
+          setMember({ ...member, facebookUrl: e.target.value });
+        } else if (
+          e.target.value &&
+          e.target.value.includes('https://www.facebook.com/')
+        ) {
+          setMember({ ...member, linkedinUrl: e.target.value });
+        }
         break;
     }
   };
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleError()) {
       showSuccessAlert('Member created') &
-        dispatch(membersActions.update(member));
+        dispatch(membersActions.updateOrCreate({ member, id }));
     }
   };
 
@@ -59,9 +76,9 @@ const EditCreateMembers = () => {
       case member.description === '':
         showErrorAlert('The description is required');
         break;
-      case !isValidSocialMedia(member.social_media):
-        showErrorAlert('The social media is not valid');
-        break;
+      // case !isValidSocialMedia(member.social_media):
+      //   showErrorAlert('The social media is not valid');
+      //   break;
       default:
         return true;
     }
@@ -92,10 +109,10 @@ const EditCreateMembers = () => {
       <input
         type="file"
         onChange={handleChange}
+        id="image"
         name="image"
-        value={member.imageMember}
-        id="file-id"
-        accept="image/png, image/jpeg"
+        value={undefined}
+        accept="image/jpeg, image/jpg, image/png"
         required
       />
       {member.imageMember && <img src={member.imageMember} alt="member" />}

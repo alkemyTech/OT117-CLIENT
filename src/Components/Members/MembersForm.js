@@ -8,9 +8,9 @@ const MembersForm = () => {
   const ImageData = 'http://ongapi.alkemy.org/storage/akaqb9t7Xi.jpeg';
 
   const [initialValues, setInitialValues] = useState({
-    name: '',
-    description: '',
-    image: `data:image/jpeg;base64, + ${ImageData}`,
+    name: 'string',
+    image: 'string',
+    description: 'string',
   });
 
   const handleChange = (e) => {
