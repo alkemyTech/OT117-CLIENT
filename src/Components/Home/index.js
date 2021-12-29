@@ -9,6 +9,7 @@ import * as testimonialService from '../../Services/testimonialService';
 import { errorMessage } from '../error';
 import SkeletonLoader from '../Loader/SkeletonLoader';
 import LoadingSpinner from '../../Utils/loadingSpinner';
+import { ConfirmAlert, InfoAlert } from '../common/alerts/Alerts';
 
 const Home = () => {
   const [welcomeText, setWelcomeText] = useState('');
@@ -37,7 +38,6 @@ const Home = () => {
           slices={3}
           button={{ text: 'Ver todas', to: '/novedades' }}
         />
-
         <CardsSection
           title="Testimonios"
           getInformation={testimonialService.getAllTestimonial}
