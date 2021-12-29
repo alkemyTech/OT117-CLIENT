@@ -31,14 +31,16 @@ const NewsForm = () => {
       "image",
       "category_id"
     );
-  // handleNewsImputChange(e,news,setNews,setCategorySelect,categories,"name","content","image","category_id");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     sendNews();
   };
 
-  const sendNews = async () => {
-    dispatch(newsActions.createOrUpdate({ newsid, news }));
+  const sendNews = () => {
+    const {image, ...withOutImage} = news;
+    const imageCondition = () => news.image === currentNews.image ? withOutImage : news;
+    dispatch(newsActions.createOrUpdate({ newsid, news:imageCondition()}));
     dispatch(newsActions.cleanCurrentState());
     setTimeout(() => {
       history.push("/backoffice/news");
@@ -54,7 +56,7 @@ const NewsForm = () => {
     newsid && dispatch(newsActions.getById(newsid));
     setNews(currentNews);
   }, [newsid]);
-  useEffect(() => {}, [news.image]);
+
   return (
     <form className="form-container" onSubmit={handleSubmit}>
       <label htmlFor="name">Title</label>
@@ -95,7 +97,7 @@ const NewsForm = () => {
         name="image"
         value={undefined}
         onChange={handleChange}
-        style={{ color: "white" }}
+        style={{ color: "black" }}
       />
       {news.image && (
         <img style={{ width: "100px" }} src={news.image} alt="img" />

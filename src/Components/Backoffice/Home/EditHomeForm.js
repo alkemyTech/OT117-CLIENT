@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import "../../FormStyles.css";
 import Swal from "sweetalert2";
+import {Link} from "react-router-dom";
 
 const EditHomeForm = ({ homeEditWelcomeTitle }) => {
   const [slides, setSlides] = useState([]);
@@ -100,6 +101,16 @@ const EditHomeForm = ({ homeEditWelcomeTitle }) => {
         <h2 id="homeEditSubTitle" name="homeEditSubTitle">
           Seleccionar 3 imágenes:
         </h2>
+        <Button
+          id="homeEditAddImage"
+          name="homeEditAddImage"
+          size="small"
+          component={Link}
+          variant="contained"
+          to="slides/create"
+        >
+          Agregar nueva imagen
+        </Button>
         <TableContainer>
           <Table>
             <TableHead>

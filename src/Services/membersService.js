@@ -1,25 +1,46 @@
-import axios from "axios";
-import { getAuthorizationHeader } from "./privateApiService";
+import axios from 'axios';
+import { getAuthorizationHeader } from './privateApiService';
 
 const baseURL = process.env.REACT_APP_API_URL_MEMBERS;
 const authorizationHeader = { headers: getAuthorizationHeader() };
 const getMembers = async () => {
-  const  response  = await axios.get(`${baseURL}`, authorizationHeader);
-  return response.data.data
+  const response = await axios.get(`${baseURL}`, authorizationHeader);
+  return response.data.data;
 };
 
-const createMember = (data) => {
-  const response = axios.post(`${baseURL}`, data, authorizationHeader);
+const createMember = async (data) => {
+  const response = await axios
+    .post(`${baseURL}`, data, authorizationHeader)
+    .catch((err) => console.log(err));
   return response;
 };
 
-const getMember = (id) => {
-  const response = axios.get(`${baseURL}/${id}`, authorizationHeader);
+const updateOrCreate = async (member, memberId) => {
+  try {
+    const idExist = (await memberId) && getMember(memberId);
+    if (idExist) {
+      const data = await updateMember(member, memberId);
+      return data;
+    } else if (!idExist && member) {
+      const data = await createMember(member);
+      return data;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getMember = async (id) => {
+  const response = await axios.get(`${baseURL}/${id}`, authorizationHeader);
   return response;
 };
 
-const updateMember = (id, data) => {
-  const response = axios.put(`${baseURL}/${id}`, data, authorizationHeader);
+const updateMember = async (data, id) => {
+  const response = await axios.put(
+    `${baseURL}/${id}`,
+    data,
+    authorizationHeader
+  );
   return response;
 };
 
@@ -34,7 +55,7 @@ const membersApiActions = {
   getMember,
   updateMember,
   removeMember,
+  updateOrCreate,
 };
 
 export default membersApiActions;
-

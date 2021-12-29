@@ -3,7 +3,7 @@ const regExp = {
   password: /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{6,}$/i,
   url: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i,
 };
-const isObject = (value) => typeof value === "object";
+const isObject = (value) => typeof value === 'object';
 const isFile = (file) => isObject(file) && file.name && file.size;
 const validValue = (regExp, value) => regExp.test(value);
 const isValidFile = (acceptTypes, file) =>
@@ -17,7 +17,7 @@ const validateRequiredValues = (values, errors, requiredValues) => {
 
 const hasRequiredError = (values, errors, key) => {
   if (notHasValue(values, key)) {
-    errors[key] = "Dato Obligatorio";
+    errors[key] = 'Dato Obligatorio';
     return true;
   }
   return false;
@@ -25,7 +25,7 @@ const hasRequiredError = (values, errors, key) => {
 
 const isValidImage = (value) => {
   const validImage = value.type;
-  if (validImage === "image/jpeg" || validImage === "image/png") {
+  if (validImage === 'image/jpeg' || validImage === 'image/png') {
     return true;
   } else {
     return false;
@@ -34,9 +34,10 @@ const isValidImage = (value) => {
 
 const isValidSocialMedia = (value) => {
   if (
-    value.includes("https://www.facebook.com/") ||
-    value.includes("https://www.instagram.com/") ||
-    value.includes("https://www.twitter.com/")
+    value !== undefined &&
+    (value.includes('https://www.facebook.com/') ||
+      value.includes('https://www.linkedin.com/') ||
+      value.includes('https://www.twitter.com/'))
   ) {
     return true;
   } else {

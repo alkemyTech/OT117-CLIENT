@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, TableCell, TableRow } from "@mui/material";
 import Swal from "sweetalert2";
+import { getSlides, DeleteSlide } from "../../../Services/slidesService";
 
 const EditHomeItem = ({ item, slidesIds, setSlidesIds }) => {
   const ShowErrorAlert = () => {
@@ -12,6 +13,10 @@ const EditHomeItem = ({ item, slidesIds, setSlidesIds }) => {
       ? setSlidesIds([...slidesIds, item.id])
       : ShowErrorAlert();
   };
+
+  const handleRemoveSelectedImage = () => {
+    DeleteSlide(item.id)
+  }
 
   return (
     <>
@@ -42,6 +47,18 @@ const EditHomeItem = ({ item, slidesIds, setSlidesIds }) => {
             onClick={handleSelectImage}
           >
             Seleccionar Imagen
+          </Button>
+          <br/><br/>
+          <Button
+            id="removeFromSliderButton"
+            name="removeFromSliderButton"
+            variant="contained"
+            type="button"
+            className="btn btn-secondary"
+            value="Remove from the Slider"
+            onClick={handleRemoveSelectedImage}
+          >
+            Eliminar imagen
           </Button>
         </TableCell>
       </TableRow>
