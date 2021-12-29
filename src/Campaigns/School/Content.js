@@ -22,6 +22,7 @@ const Content = () => {
           <Typography variant="h5">{`${actualDate.format("DD/MM/YYYY")} ${actualDate.format("HH:mm")}hs`}</Typography>
           <Typography variant="h5">Avenida Lacarra 621, Parque Avellaneda, Provincia de Buenos Aires</Typography>
         </Box>
+        <Typography variant="h5" sx={{display: {xs:'none', sm:'block'}}}>{`Fecha del concurso: ${contestDate.format("DD/MM/YYYY")}`}</Typography>
         <Typography variant="h5" sx={{display: {xs:'none', sm:'block'}}}>
           TE QUEDAN: {`${dateDifference._data.months} meses, ${dateDifference._data.days} días y ${dateDifference._data.hours} horas`} para participar
         </Typography>
@@ -31,7 +32,21 @@ const Content = () => {
         </Typography>
       </Box>
       <Box sx={{display:{xs:'none', lg:'flex'}, minHeight:'300px', justifyContent:'space-between', position:'absolute', width:'100%', top:'60px'}}>
-        {images.map((image) => <img src={image.img} alt={image.alt} width="200px" style={{transform:`rotate(${image.rotate})`, height:'fit-content', alignSelf:image.align}}/> )}
+        {
+          images.map((image, index) =>
+            <img
+              key= {index}
+              src= {image.img}
+              alt= {image.alt}
+              width= "200px"
+              style= {{
+                transform:`rotate(${image.rotate})`,
+                height: 'fit-content',
+                alignSelf: image.align
+              }}
+            />
+          )
+        }
       </Box>
     </Container>
   );
