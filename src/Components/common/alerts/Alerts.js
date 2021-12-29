@@ -13,10 +13,10 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
 });
-export const AlertError = (message) => {
+export const AlertError = (message,status) => {
   return Toast.fire({
     icon: 'error',
-    text: message
+    text: status ? `${message} - status: ${status}` : message
   });
 };
 
