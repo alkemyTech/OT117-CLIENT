@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'top-end',
+  position: 'bottom',
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
@@ -13,10 +13,10 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
 });
-export const AlertError = (status, message) => {
+export const AlertError = (message,status) => {
   return Toast.fire({
     icon: 'error',
-    text: `${message}- status: ${status}`,
+    text: status ? `${message} - status: ${status}` : message
   });
 };
 
