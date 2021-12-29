@@ -54,7 +54,7 @@ const LoginForm = () => {
     e.preventDefault();
     const { token } = await loginRequest();
     console.log("TOKEN", token);
-    if (token) {
+    if (!token) {
       localStorage.setItem("token", token);
       localStorage.setItem("userName", "nombreHardcodeado");
     }

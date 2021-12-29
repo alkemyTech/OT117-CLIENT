@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box } from "@mui/material";
+import styled from "styled-components"
 import SwiperCore, {
   Autoplay,
   Navigation,
@@ -14,12 +15,30 @@ import "swiper/swiper.min.css";
 import "../../Styles/Carousel.css";
 SwiperCore.use([Parallax, Autoplay, Navigation, Pagination, Scrollbar, A11y]);
 
+const SliderContainer = styled.div`
+  --slider-padding: 1em;
+  width: calc(100% - (var(--slider-padding) * 2));
+  height: 20rem;
+  padding: var(--slider-padding);
+
+  @media screen and (min-width: ${640 / 16}rem){
+    --slider-padding: 1.5em;
+    height: 25rem;  
+  }
+
+  @media screen and (min-width: ${1024 / 16}rem){
+    --slider-padding: 2em;
+    height: 30rem;
+  }
+`
+
 const CarouselCampaign = ({ values }) => {
   const sliderContent = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "450 px",
+    width: "100%",
+    height: "100%",
     backgroundRepeat: "no-repeat",
     boxSizing: "border-box",
   };
@@ -30,16 +49,11 @@ const CarouselCampaign = ({ values }) => {
     "--swiper-navigation-size": "80px",
     textShadow: "0 0 0 #000",
     background: "0 0 0 #000",
-    height: "450px",
+    width: "100%",
+    height: "100%"
   };
   return (
-    <Box
-      sx={{
-        paddingTop: "20px",
-        width: "80%",
-        margin: "0 auto",
-      }}
-    >
+    <SliderContainer>
       <Swiper
         style={sliderContainer}
         speed={2000}
@@ -55,25 +69,16 @@ const CarouselCampaign = ({ values }) => {
             <SwiperSlide key={index}>
               <div data-swiper-parallax="-23%">
                 <SwiperSlide style={sliderContent}>
-                  <Box
-                    xs={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      textAlign: "center",
-                    }}
-                  >
                     <img
                       src={slide.img}
                       alt={slide.title}
                       style={{
-                        width: "90%",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "center",
+                        objectPosition: "center"
                       }}
                     />
-                  </Box>
                 </SwiperSlide>
               </div>
               <Box
@@ -91,7 +96,7 @@ const CarouselCampaign = ({ values }) => {
           </>
         ))}
       </Swiper>
-    </Box>
+    </SliderContainer>
   );
 };
 
