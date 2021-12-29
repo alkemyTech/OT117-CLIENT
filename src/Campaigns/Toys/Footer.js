@@ -57,9 +57,11 @@ export const Footer = () => {
         <Box
           sx={{
             display: { xs: "flex" },
+            justifyContent: {xs: "center"},
+            alignItems: {xs: "center"}
           }}
         >
-          <img width="110px" src={Logo} alt="Logo de la ONG" />
+          <img width="120px" src={Logo} alt="Logo de la ONG" />
         </Box>
 
         <Box
@@ -82,12 +84,12 @@ export const Footer = () => {
           width: { xs: "100%" },
         }}
       >
-        <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+        <Box sx={{ display: { xs: "none", sm: "flex" }, marginBottom:'15px'  }}>
           <Link to="/" style={linkStyle}>
             Visita nuestra página
           </Link>
         </Box>
-        <Box sx={{ display: { xs: "none", xl: "flex" } }}>
+        <Box sx={{ display: { xs: "none", xl: "flex" }, marginBottom:'15px'  }}>
           <Link to="/school-campaign" style={linkStyle}>
             Campaña Escolar
           </Link>
