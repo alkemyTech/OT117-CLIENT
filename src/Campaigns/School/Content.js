@@ -1,4 +1,4 @@
-import { Container, Box, ImageList, Typography } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 import React from 'react';
 import Image from '../../Assets/SchoolCampaign/Logotipo campaña materiales escolares.png';
 import Image2 from '../../Assets/SchoolCampaign/Imágenes contenido opción 1.png';
