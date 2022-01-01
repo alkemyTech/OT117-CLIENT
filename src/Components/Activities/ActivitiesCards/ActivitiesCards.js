@@ -25,7 +25,9 @@ const ActivitiesCards = ({ activities }) => {
                 route={`/activity-detail/${card.id}`}
                 title={card.name}
                 img={card.image}
-                description={card.description && setCKEditorText(card, "description")}
+                description={
+                  card.description && setCKEditorText(card, "description")
+                }
               />
             </Grid>
           ))

@@ -15,7 +15,8 @@ import ToysCampaign from "../../Campaigns/Toys/ToysCampaign";
 import PublicRoute from "./PublicRoute";
 import { AnimatedSwitch } from "react-router-transition";
 import Contacto from "../Contact/Contact";
-import TestimonialsDetaills from "../Testimonials/TestimonialsDetaills";
+import TestimonialDetails from "../Testimonials/TestimonialDetails";
+import Testimonials from "../Testimonials/Testimonials";
 
 const PublicRouter = () => {
   return (
@@ -40,8 +41,9 @@ const PublicRouter = () => {
         <PublicRoute path="/contacto" component={Contacto} />
         <PublicRoute
           path="/testimonialls-detaills/:id"
-          component={TestimonialsDetaills}
+          component={TestimonialDetails}
         />
+        <PublicRoute path="/testimonials" component={Testimonials} />
       </AnimatedSwitch>
     </>
   );

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import {
-  getTestimonial,
-  getAllTestimonial,
-} from "../../Services/testimonialService";
+import { getTestimonial } from "../../Services/testimonialService";
 import CustomCard from "../Card/CustomCard";
 import { Container, Grid } from "@mui/material";
 import Swal from "sweetalert2";

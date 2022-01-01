@@ -43,6 +43,7 @@ const Home = () => {
           getInformation={testimonialService.getAllTestimonial}
           slices={3}
           clickeable={{ to: "/testimonialls-detaills" }}
+          button={{ text: "Ver todas", to: "/testimonials" }}
         />
       </section>
     </>

@@ -8,14 +8,13 @@ import { CustomErrorMessage } from "../common/CustomErrorMessage";
 import { setCKEditorText } from "../common/ckEditor/setCKEditorText";
 import { createOrUpdateTestimonial } from "../../Services/testimonialService";
 import { validateForm } from "../common/validations/validateForm";
-const TestimonialForm = () => {
+const TestimonialsForm = () => {
   const { testimonialId } = useParams();
   const [testimonial, setTestimonial] = useState({
     name: "",
     description: "",
     image: "",
   });
-
   const handleChangeDescription = (description, setFieldValue) => {
     setFieldValue("description", description.getData());
   };
@@ -104,4 +103,4 @@ const TestimonialForm = () => {
   );
 };
 
-export default TestimonialForm;
+export default TestimonialsForm;
