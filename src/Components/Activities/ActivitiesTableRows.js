@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { showSuccessAlert } from "../../Utils/alerts";
 
-const ActivitiesTableRows = ({loadingValue}) => {
+const ActivitiesTableRows = ({}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -23,17 +23,10 @@ const ActivitiesTableRows = ({loadingValue}) => {
 }
 
   const activities = useSelector((state) => state.activities.activities);
-  const isLoading = useSelector((state) => state.news.loading);
 
   useEffect(() => {
     dispatch(activitiesActions.getAll());
 }, []);
-
-  useEffect(()=>{
-    if(loadingValue){
-        !isLoading && loadingValue(false);
-      }
-    },[isLoading])
 
   return (
     <>
