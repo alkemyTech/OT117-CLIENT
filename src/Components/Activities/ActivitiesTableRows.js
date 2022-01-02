@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { showSuccessAlert } from "../../Utils/alerts";
 
-const NewsTableRows = ({loadingValue}) => {
+const ActivitiesTableRows = ({loadingValue}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,12 +22,12 @@ const NewsTableRows = ({loadingValue}) => {
     showSuccessAlert("Actividad eliminada");
 }
 
-  const activities = useSelector((state) => state.activities.data);
+  const activities = useSelector((state) => state.activities.activities);
   const isLoading = useSelector((state) => state.news.loading);
 
   useEffect(() => {
     dispatch(activitiesActions.getAll());
-  }, []);
+}, []);
 
   useEffect(()=>{
     if(loadingValue){
@@ -70,4 +70,4 @@ const NewsTableRows = ({loadingValue}) => {
   );
 };
 
-export { NewsTableRows };
+export default ActivitiesTableRows

@@ -1,28 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { showSuccessAlert } from "../../../Utils/alerts";
 import "../../../Styles/TableStyle.css";
-import { getAll, deleteById } from '../../../app/activitiesReducer/activitiesReducer';
-import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import {NewsTableRows} from '../../News/NewsTableRows';
+import ActivitiesTableRows from "../../Activities/ActivitiesTableRows";
 import {Table,TableBody,TableCell,TableContainer,TableHead,Button,TableRow} from "@mui/material";
 import TitleBackoffice from '../TitleBackoffice'
 const ActivitiesTable = () => {
-  const history = useHistory();
-  const { activities: dataActivity } = useSelector(state => state.activities);
-  const dispatch = useDispatch();
-  const editData = (id) => history.push(`/activity-detail/${id}`);
-
-  const deleteData = (id) => {
-    dispatch(deleteById(id));
-    showSuccessAlert("Delete Activity");
-  };
-
-  useEffect(() => {
-    dispatch(getAll());
-  }, [])
-
   return (
     <>
      <TitleBackoffice title={"Edición de Actividades"} />
@@ -47,7 +29,7 @@ const ActivitiesTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <NewsTableRows newsList={dataActivity} onDelete={deleteData} onEdit={editData}/>
+          <ActivitiesTableRows></ActivitiesTableRows>
         </TableBody>
       </Table>
       </TableContainer>
