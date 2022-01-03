@@ -29,7 +29,7 @@ const TestimonialsForm = () => {
     resetForm();
   };
 
-  const placeholder = "Write some testimonial description";
+  const placeholder = "Write some testimonial description.";
   return (
     <div className="form-container">
       <Formik
