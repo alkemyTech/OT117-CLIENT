@@ -14,7 +14,7 @@ const ActivitiesTableRows = ({}) => {
 
   const onEdit = (id) => {
     dispatch(activitiesActions.getById(id)).then(() => {
-      history.push(`/activity-detail/${id}`);
+      history.push(`/backoffice/activities/edit/${id}`);
     });
   };
   const onDelete = (id) => {
