@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showErrorAlert, showSuccessAlert } from "../Utils/alerts";
 
 const baseURL = process.env.REACT_APP_BASE_URL_CATEGORIES;
 const headers = {
@@ -26,23 +27,29 @@ const getCategory = async (id) => {
 
 const createCategory = (categoryData) => {
   try {
-    const { data } = axios.post(`${baseURL}`, categoryData, {
-      headers: headers,
-    });
+    const { data } = axios
+      .post(`${baseURL}`, categoryData, {
+        headers: headers,
+      })
+      .then(showSuccessAlert("Categoria creada con exito"));
     return data;
   } catch (error) {
     console.error(error);
+    showErrorAlert("Hubo un error, vuelva mas tarde");
   }
 };
 
 const updateCategory = (id, categoryData) => {
   try {
-    const { data } = axios.put(`${baseURL}/${id}`, categoryData, {
-      headers: headers,
-    });
+    const { data } = axios
+      .put(`${baseURL}/${id}`, categoryData, {
+        headers: headers,
+      })
+      .then(showSuccessAlert("Categoria modificada con exito"));
     return data;
   } catch (error) {
     console.error(error);
+    showErrorAlert("Hubo un error, vuelva mas tarde");
   }
 };
 const createOrUpdate = async (id, categoryData) => {
@@ -56,15 +63,19 @@ const createOrUpdate = async (id, categoryData) => {
     }
   } catch {
     console.error(error);
+    showErrorAlert("Hubo un error, vuelva mas tarde");
   }
 };
 
 const removeCategory = (id) => {
   try {
-    const { data } = axios.delete(`${baseURL}/${id}`);
+    const { data } = axios
+      .delete(`${baseURL}/${id}`)
+      .then(showSuccessAlert("Categoria eliminada"));
     return data;
   } catch (error) {
     console.error(error);
+    showErrorAlert("Hubo un error, vuelva mas tarde");
   }
 };
 
