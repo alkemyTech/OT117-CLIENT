@@ -53,10 +53,10 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { token } = await loginRequest();
-    console.log('TOKEN', token);
+    console.log("TOKEN", token);
     if (!token) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('userName', 'nombreHardcodeado');
+      localStorage.setItem("token", token);
+      localStorage.setItem("userName", "nombreHardcodeado");
     }
     setLoading(true);
   };

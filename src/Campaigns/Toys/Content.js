@@ -38,8 +38,7 @@ const Content = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        position: "relative",
-        marginTop: "50px",
+        position: "relative"
       }}
     >
       <Box
