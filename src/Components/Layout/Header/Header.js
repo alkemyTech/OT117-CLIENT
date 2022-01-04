@@ -8,7 +8,7 @@ import toysLogo from '../../../Assets/ToysCampaign/Logotipo campaña juguetes.pn
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NavLinksList from './NavLinksList';
-import { navLinks, manageLinkActivation } from './HeaderLinks';
+import { navLinks,campaignLinks, manageLinkActivation } from './HeaderLinks';
 import '../../../Styles/Header.css';
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
     <Container maxWidth={false} sx={{display: 'flex',  backgroundColor:"#28527A",justifyContent: 'space-between', padding:'0 15px 0 10px'}}>
       <Box sx={{display:'flex', gap:'20px', color:"white", alignItems:'center'}}>
         <img id='ong-logo-image' className={window.location.pathname!=='/'?('ong-logo'):('')} src={logo} height="100px"/>
-        {window.location.pathname!=='/'?
+        {window.location.pathname==='/school-campaign' || window.location.pathname==='/toys-campaign'?
           (
             <Box sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
               {window.location.pathname==='/school-campaign'?
@@ -42,14 +42,20 @@ const Header = () => {
             </Box>
           ):
           (null)}
-        <NavLinksList horizontal navLinks={navLinks} isLogged={isLogged}/>
+        <NavLinksList horizontal navLinks={navLinks} campaignLinks={campaignLinks} isLogged={isLogged}/>
       </Box>
         <List sx={{display:{xs:'none', lg:'flex'}, gap:'10px'}}>
           {isLogged
           ?<>
-            <Button color="buttonlogin" variant="outlined" sx={{alignSelf:'center'}}>{userName}</Button>
-            <Button component={Link} to="/backoffice" color="buttonlogin" variant="outlined" sx={{alignSelf:'center'}}>Backoffice</Button>
-            <Button color="buttonlogin" variant="outlined" sx={{alignSelf:'center'}} onClick={()=>logout()}>Cerrar sesión</Button>
+            <div display="flex" flexDirection="column">
+              <div>
+                <Button color="buttonlogin" variant="outlined" sx={{alignSelf:'center'}}><span>{userName}</span></Button>
+              </div>
+              <div>
+                <Button component={Link} to="/backoffice" color="buttonlogin" variant="outlined" sx={{alignSelf:'center'}}>Backoffice</Button>
+                <Button color="error" variant="contained" sx={{alignSelf:'center'}} onClick={()=>logout()}>Cerrar sesión</Button>
+              </div>
+            </div>
           </>
           :<>
             <Button component={Link} to="/login" color="buttonlogin" variant="outlined" sx={{alignSelf:'center'}}>
@@ -73,15 +79,23 @@ const Header = () => {
           sx={{ width: 250 }}
           role="presentation">
             <List sx={{display:'flex', flexDirection:'column', paddingLeft:'15px', gap:'10px'}}>
-              <Button component={Link} to="/login" variant="outlined" sx={{alignSelf:'start'}}>
-                LOGIN
-              </Button>
-              <Button component={Link} to="/register" variant="contained" sx={{alignSelf: 'start'}}>
-                Registrate
-              </Button>
-            </List>
+              {isLogged
+                ?<>
+                  <Button color="success" variant="outlined" sx={{alignSelf:'center'}}>{userName}</Button>
+                  <Button component={Link} to="/backoffice" color="success" variant="outlined" sx={{alignSelf:'center'}}>Backoffice</Button>
+                  <Button color="error" variant="outlined" sx={{alignSelf:'center'}} onClick={()=>logout()}>Cerrar sesión</Button>
+                </>
+                :<>
+                  <Button component={Link} to="/login" variant="outlined" sx={{alignSelf:'start'}}>
+                    LOGIN
+                  </Button>
+                  <Button component={Link} to="/register" variant="contained" sx={{alignSelf: 'start'}}>
+                    Registrate
+                  </Button>
+                </>
+              }</List>
             <Divider />
-            <NavLinksList navLinks={navLinks} isLogged={isLogged}/>
+            <NavLinksList navLinks={navLinks} campaignLinks={campaignLinks} isLogged={isLogged}/>
           </Box>
       </SwipeableDrawer>
     </Container>
