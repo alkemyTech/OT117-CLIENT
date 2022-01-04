@@ -5,11 +5,12 @@ import { setUrlImage } from '../common/File';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CustomErrorMessage } from '../common/CustomErrorMessage';
-import {setCKEditorText} from '../common/ckEditor/setCKEditorText';
 import { validateForm} from '../common/validations/validateForm';
 import * as activitiesReducer from '../../app/activitiesReducer/activitiesReducer';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 const ActivitiesForm = () => {
+  const history = useHistory()
   const {activityId} = useParams();
   const [activity, setActivity] = useState({
     id: activityId,
@@ -30,9 +31,11 @@ const ActivitiesForm = () => {
   };
 
   const handleSubmit = (values,resetForm) => {
-    let updatedValues =setCKEditorText(values,'description')
     dispatch(activitiesReducer.createOrUpdate(values));
     resetForm();
+    setTimeout(() => {
+      history.push("/backoffice/activities/")
+    }, 1500)
   }
 
   const placeholder = "Write some activity description";
