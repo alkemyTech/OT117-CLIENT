@@ -65,7 +65,7 @@ Thumbs.db
 
 #lint
 /reports
-/eslint
+reports/eslint
 
 # misc
 .DS_Store
