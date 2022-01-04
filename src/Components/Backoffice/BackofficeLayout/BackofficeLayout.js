@@ -25,7 +25,7 @@ const BackofficeLayout = () => {
       descripcion:
         "Las actividades de las cuales nuestra ong esta a disposicion las veras aquí",
       button: "Ir a actividades",
-      href: "/backoffice/activities",
+      href: "/backoffice/activities/create",
     },
     {
       images: "https://source.unsplash.com/Q9y3LRuuxmg",
@@ -141,7 +141,7 @@ const BackofficeLayout = () => {
                       color="white"
                       underline="none"
                       to={categories.href}
-                      style={{width:'100%'}}
+                      style={{ width: "100%" }}
                     >
                       <Typography align="center" variant="string" color="white">
                         {categories.button}

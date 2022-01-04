@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 import CustomCard from "../../Card/CustomCard";
 
 const ActivitiesCards = ({ activities }) => {
+  console.log(activityService.isValidList(activities));
   return (
     <Container
       sx={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center",
         my: 1,
         mb: 7,
         mt: 9,
@@ -25,7 +27,9 @@ const ActivitiesCards = ({ activities }) => {
                 route={`/activity-detail/${card.id}`}
                 title={card.name}
                 img={card.image}
-                description={card.description && setCKEditorText(card, "description")}
+                description={
+                  card.description && setCKEditorText(card, "description")
+                }
               />
             </Grid>
           ))
