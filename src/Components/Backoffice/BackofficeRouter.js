@@ -1,29 +1,30 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import EditHomeForm from "./Home/EditHomeForm";
-import MembersResults from "./Members/MembersResults";
-import ActivitiesTable from "./ActivitiesBackOffice/ActivitiesTable";
-import CategoriesList from "./Categories/CategoriesList";
-import BackofficeUsers from "./Users/BackofficeUsers";
-import MemberEditCreate from "../Members/MemberEditCreate";
-import OrganizationEditionForm from "../Organization/OrganizationEditionForm";
-import SlidesForm from "../Slides/SlidesForm";
-import NewsListEditTable from "../News/NewsListEditTable";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import BackofficeLayout from "./BackofficeLayout/BackofficeLayout";
-import { AnimatedSwitch } from "react-router-transition";
-import ActivitiesForm from "../Activities/ActivitiesForm";
-import CategoriesForm from "../Categories/CategoriesForm";
-import NewsForm from "../News/NewsForm";
-import TestimonialForm from "../Testimonials/TestimonialsForm";
-import UserForm from "../Users/UsersForm";
-import MembersForm from "../Members/MembersForm";
-import ProjectsForm from "../Projects/ProjectsForm";
-import BackofficeHeader from "./BackofficeHeader";
-import "../../Styles/Container.css";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import EditHomeForm from './Home/EditHomeForm';
+import MembersResults from './Members/MembersResults';
+import ActivitiesTable from './ActivitiesBackOffice/ActivitiesTable';
+import CategoriesList from './Categories/CategoriesList';
+import BackofficeUsers from './Users/BackofficeUsers';
+import MemberEditCreate from '../Members/MemberEditCreate';
+import OrganizationEditionForm from '../Organization/OrganizationEditionForm';
+import SlidesForm from '../Slides/SlidesForm';
+import NewsListEditTable from '../News/NewsListEditTable';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import BackofficeLayout from './BackofficeLayout/BackofficeLayout';
+import { AnimatedSwitch } from 'react-router-transition';
+import ActivitiesForm from '../Activities/ActivitiesForm';
+import CategoriesForm from '../Categories/CategoriesForm';
+import NewsForm from '../News/NewsForm';
+import TestimonialForm from '../Testimonials/TestimonialsForm';
+import UserForm from '../Users/UsersForm';
+import MembersForm from '../Members/MembersForm';
+import ProjectsForm from '../Projects/ProjectsForm';
+import BackofficeHeader from './BackofficeHeader';
+import '../../Styles/Container.css';
+import EditCreateMembers from '../Members/MemberEditCreate';
 
 const BackOfficeRouter = () => {
-  const path = "/backoffice";
+  const path = '/backoffice';
   return (
     <>
       <Router>
@@ -79,7 +80,7 @@ const BackOfficeRouter = () => {
           <PrivateRoute path={`${path}/users/create`} component={UserForm} />
           <PrivateRoute
             path={`${path}/members/create`}
-            component={MembersForm}
+            component={EditCreateMembers}
           />
           <PrivateRoute
             path={`${path}/projects/create`}

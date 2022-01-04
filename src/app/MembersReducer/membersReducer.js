@@ -1,25 +1,51 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import membersApiActions from '../../Services/membersService'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import membersApiActions from '../../Services/membersService';
 
 const membersInitialState = {
   loading: false,
   data: [],
-  error: "",
-  currentMember:{
-   name: "",
-  description: "",
-  facebookUrl: ""
+  error: '',
+  currentMember: {
+    name: '',
+    description: '',
+    facebookUrl: '',
   },
 };
 
-export const getAll = createAsyncThunk("news/getAll", membersApiActions.getMembers);
-export const getById = createAsyncThunk("news/getById", membersApiActions.getMember);
-export const create = createAsyncThunk("news/create", membersApiActions.createMember);
-export const update = createAsyncThunk("news/update", membersApiActions.updateMember);
-export const deletebyId = createAsyncThunk("news/delete", membersApiActions.removeMember );
+export const getAll = createAsyncThunk(
+  'members/getAll',
+  membersApiActions.getMembers
+);
+export const getById = createAsyncThunk(
+  'members/getById',
+  membersApiActions.getMember
+);
+export const create = createAsyncThunk(
+  'members/create',
+  membersApiActions.createMember
+);
+
+export const updateOrCreate = createAsyncThunk(
+  'members/updateOrCreate',
+  (member) =>
+    membersApiActions
+      .updateOrCreate(member.member, member.memberId)
+      .catch((err) => {
+        err;
+      })
+);
+
+export const update = createAsyncThunk(
+  'members/update',
+  membersApiActions.updateMember
+);
+export const deletebyId = createAsyncThunk(
+  'members/delete',
+  membersApiActions.removeMember
+);
 
 const membersSlice = createSlice({
-  name: "members",
+  name: 'members',
   initialState: membersInitialState,
   extraReducers: {
     [getAll.pending]: (state, action) => {
@@ -76,6 +102,30 @@ const membersSlice = createSlice({
       };
     },
     [create.rejected]: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    },
+    [updateOrCreate.pending]: (state, action) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    [updateOrCreate.fulfilled]: (state, action) => {
+      const payloadNews = state.data.findIndex(
+        (element) => element.id == action.payload.id
+      );
+      if (payloadNews >= 0) {
+        state.data[payloadNews] = action.payload;
+      } else {
+        console.log('esta llegando');
+        state.data = [...state.data, action.payload];
+      }
+    },
+    [updateOrCreate.rejected]: (state, action) => {
       return {
         ...state,
         loading: false,
