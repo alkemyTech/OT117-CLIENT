@@ -8,7 +8,7 @@ import {
   Typography,
   CardActionArea,
 } from "@mui/material";
-/* import Title from "../../Title/Title"; */
+// import Title from "../../Title/Title";
 import { getById } from "../../../app/activitiesReducer/activitiesReducer";
 import { useSelector } from "react-redux";
 import "../../../Styles/CardStyle.css";
@@ -38,7 +38,7 @@ const Detail = () => {
     dispatch(getById(id));
     stripedHtml();
     setIsLoading(false);
-  }, [stripedHtml]);
+  }, []);
 
   return (
     <div>

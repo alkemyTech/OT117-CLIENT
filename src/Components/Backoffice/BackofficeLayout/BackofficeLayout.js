@@ -25,7 +25,7 @@ const BackofficeLayout = () => {
       descripcion:
         "Las actividades de las cuales nuestra ong esta a disposicion las veras aquí",
       button: "Ir a actividades",
-      href: "/backoffice/activities/create",
+      href: "/backoffice/activities",
     },
     {
       images: "https://source.unsplash.com/Q9y3LRuuxmg",

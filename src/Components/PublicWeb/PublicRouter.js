@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import Detail from "../Activities/Detail/Detail";
+import Detail from "../Activities/Detail/Detail.js";
 import NewsDetailLayout from "../News/Detail/NewsDetailLayout";
 import ActivitiesList from "../Activities/ActivitiesList";
 import Home from "../Home";
