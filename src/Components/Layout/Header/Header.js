@@ -2,11 +2,14 @@ import { Box, Button, List, Divider, SwipeableDrawer, Container, IconButton } fr
 import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import logo from '../../../Assets/Logo/logo.png'
+import logo from '../../../Assets/Logo/logo.png';
+import schoolLogo from '../../../Assets/SchoolCampaign/Logotipo campaña materiales escolares.png';
+import toysLogo from '../../../Assets/ToysCampaign/Logotipo campaña juguetes.png'
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NavLinksList from './NavLinksList';
 import { navLinks, manageLinkActivation } from './HeaderLinks';
+import '../../../Styles/Header.css';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +28,20 @@ const Header = () => {
   },[userName])
   return (
     <Container maxWidth={false} sx={{display: 'flex',  backgroundColor:"#28527A",justifyContent: 'space-between', padding:'0 15px 0 10px'}}>
-      <Box sx={{display:'flex', gap:'20px', color:"white"}}>
-        <img src={logo} height="100px"/>
+      <Box sx={{display:'flex', gap:'20px', color:"white", alignItems:'center'}}>
+        <img id='ong-logo-image' className={window.location.pathname!=='/'?('ong-logo'):('')} src={logo} height="100px"/>
+        {window.location.pathname!=='/'?
+          (
+            <Box sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+              {window.location.pathname==='/school-campaign'?
+              (
+                <img id='toys-logo' src={schoolLogo} height="70px"/>
+              )
+              :(<img id='materials-logo' src={toysLogo} height="70px"/>)}
+              <span id='campaign-slogan' className='slogan'>{window.location.pathname==='/school-campaign'? ('JUNTOS EN LA VUELTA AL COLE'):('JUGUETES POR MÁS SONRISAS')}</span>
+            </Box>
+          ):
+          (null)}
         <NavLinksList horizontal navLinks={navLinks} isLogged={isLogged}/>
       </Box>
         <List sx={{display:{xs:'none', lg:'flex'}, gap:'10px'}}>

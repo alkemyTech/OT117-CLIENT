@@ -1,61 +1,86 @@
-import React, { useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React, { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as membersActions from '../../app/MembersReducer/membersReducer';
 import {
   isValidImage,
   isValidSocialMedia,
   isValidNameMembers,
-} from "../../Utils/validation";
-import { handleCKeditorForm } from "../../Utils/handlers";
-import { showErrorAlert, showSuccessAlert } from "../../Utils/alerts";
-import "../FormStyles.css";
+} from '../../Utils/validation';
+import { handleCKeditorForm } from '../../Utils/handlers';
+import { showErrorAlert, showSuccessAlert } from '../../Utils/alerts';
+import '../FormStyles.css';
+import { useDispatch } from 'react-redux';
+import { URLFileFormater } from '../../Utils/formatters';
+import { useParams } from 'react-router-dom';
 
 const EditCreateMembers = () => {
   const [member, setMember] = useState({
-    name: "",
-    description: "",
-    imageMember: "",
-    social_media: "",
+    name: '',
+    description: '',
+    image: '',
+    facebookUrl: '',
+    linkedinUrl: '',
   });
+
+  const { memberId } = useParams();
+
+  const social_media = [member.facebookUrl, member.linkedinUrl];
 
   const handleChange = (e) => {
     switch (e.target.name) {
-      case "name":
+      case 'name':
         setMember({ ...member, name: e.target.value });
         break;
-      case "image":
+      case 'image':
         isValidImage(e.target.files[0])
-          ? setMember({ ...member, imageMember: e.target.value })
+          ? setMember({
+              ...member,
+              image: URLFileFormater(e, member, setMember, 'image'),
+            })
           : (showErrorAlert(
-              "Select an image type png or jpg, the file you selected is of type" +
+              'Select an image type png or jpg, the file you selected is of type' +
                 e.target.files[0].type
             ),
-            setMember({ ...member, imageMember: "" }));
+            setMember({ ...member, image: '' }));
         break;
-      case "social_media":
-        setMember({ ...member, social_media: e.target.value });
+      case 'social_media':
+        if (
+          e.target.value &&
+          e.target.value.includes('https://www.facebook.com/')
+        ) {
+          setMember({ ...member, facebookUrl: e.target.value });
+        } else if (
+          e.target.value &&
+          e.target.value.includes('https://www.linkedin.com/')
+        ) {
+          setMember({ ...member, linkedinUrl: e.target.value });
+        }
         break;
     }
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleError()) {
-      console.log(member);
-      showSuccessAlert("Member created");
+      ((memberId === undefined && showSuccessAlert('Member created')) ||
+        (memberId !== undefined && showSuccessAlert('Member update'))) &
+        dispatch(membersActions.updateOrCreate({ member, memberId }));
     }
   };
 
   const handleError = () => {
     switch (true) {
       case isValidNameMembers(member.name):
-        showErrorAlert("The name is not valid");
+        showErrorAlert('The name is not valid');
         break;
-      case member.description === "":
-        showErrorAlert("The description is required");
+      case member.description === '':
+        showErrorAlert('The description is required');
         break;
-      case !isValidSocialMedia(member.social_media):
-        showErrorAlert("The social media is not valid");
+      case !isValidSocialMedia(social_media):
+        showErrorAlert('The social media is not valid');
         break;
       default:
         return true;
@@ -80,17 +105,17 @@ const EditCreateMembers = () => {
         editor={ClassicEditor}
         data={member.description}
         onChange={(event, editor) =>
-          handleCKeditorForm(editor, "description", setMember, member)
+          handleCKeditorForm(editor, 'description', setMember, member)
         }
       />
       <label>Image</label>
       <input
         type="file"
         onChange={handleChange}
+        id="image"
         name="image"
-        value={member.imageMember}
-        id="file-id"
-        accept="image/png, image/jpeg"
+        value={undefined}
+        accept="image/jpeg, image/jpg, image/png"
         required
       />
       {member.imageMember && <img src={member.imageMember} alt="member" />}

@@ -1,24 +1,31 @@
-import React, { useState } from "react";
-import "../FormStyles.css";
+import { getDate } from 'date-fns';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as membersActions from '../../app/MembersReducer/membersReducer';
+import '../FormStyles.css';
 
 const MembersForm = () => {
+  const ImageData = 'http://ongapi.alkemy.org/storage/akaqb9t7Xi.jpeg';
+
   const [initialValues, setInitialValues] = useState({
-    name: "",
-    description: "",
+    name: 'string',
+    image: 'string',
+    description: 'string',
   });
 
   const handleChange = (e) => {
-    if (e.target.name === "name") {
+    if (e.target.name === 'name') {
       setInitialValues({ ...initialValues, name: e.target.value });
     }
-    if (e.target.name === "description") {
+    if (e.target.name === 'description') {
       setInitialValues({ ...initialValues, description: e.target.value });
     }
   };
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(initialValues);
+    dispatch(membersActions.create(initialValues));
   };
 
   return (
