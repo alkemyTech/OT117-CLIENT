@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { GoogleMap, Marker, useLoadScript, useJsApiLoader } from "@react-google-maps/api";
 import { mapToStyles } from "@popperjs/core/lib/modifiers/computeStyles";
@@ -18,33 +18,6 @@ const Map = ({ coordinates }) => {
 
   if (loadError) return <p>Error al cargar el mapa.</p>
   if (!isLoaded) return <p>Cargando Mapa....</p>
-
-  // const { isLoaded } = useJsApiLoader({
-  //   id: "google-map-script",
-  //   googleMapsApiKey: `${apiKey}`,
-  //   libraries
-  // })
-
-  // useEffect(async () => {
-  //   if (coordinates) {
-  //     try {
-  //       const res = await axios
-  //         .get(
-  //           `https://maps.googleapis.com/maps/api/geocode/json?address=${coordinates}&key=${apiKey}`
-  //         )
-  //         .then((res) => {
-  //           console.log(res.data.results[0].geometry.location.lat)
-  //           setLatitude(res.data.results[0].geometry.location.lat);
-  //           setLongitude(res.data.results[0].geometry.location.lng);
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // }, [coordinates]);
 
   return (
     <div style={{ height: "60vh", width: "620px", padding: "20px" }}>
