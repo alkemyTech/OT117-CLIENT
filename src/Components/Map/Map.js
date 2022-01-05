@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
-import { GoogleMap, Marker, useLoadScript, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { mapToStyles } from "@popperjs/core/lib/modifiers/computeStyles";
 //const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 const apiKey = "AIzaSyCt3D_qHvxmUaD5_0fauXKSe9XTX_29V-E"
 const libraries = ["places"]
 
 const Map = ({ coordinates }) => {
-  const [latitude, setLatitude] = useState(-34.55881726737178);
-  const [longitude, setLongitude] = useState(-58.47476996280374);
-
   const { isLoaded, loadError} = useLoadScript({
     id: "alchemy-location",
     googleMapsApiKey: `${apiKey}`,
-    libraries,
+    libraries
   })
+  console.log(coordinates)
 
   if (loadError) return <p>Error al cargar el mapa.</p>
   if (!isLoaded) return <p>Cargando Mapa....</p>
@@ -28,15 +26,19 @@ const Map = ({ coordinates }) => {
         }}
         zoom={15}
         center={{
-          lat: latitude,
-          lng: longitude,
+          lat: coordinates[0],
+          lng: coordinates[1],
+        }}
+        defaultCenter={{
+          lat: 10,
+          lng: 10
         }}
         options={{
           disableDefaultUI: true,
           zoomControl: true
         }}
       >
-        <Marker position={{ lat: latitude, lng: longitude }} />
+        <Marker position={{ lat: coordinates[0], lng: coordinates[1] }} />
       </GoogleMap>
     </div>
   )
