@@ -1,31 +1,50 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { GoogleMap, Marker } from "@react-google-maps/api";
-const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+import { GoogleMap, Marker, useLoadScript, useJsApiLoader } from "@react-google-maps/api";
+import { mapToStyles } from "@popperjs/core/lib/modifiers/computeStyles";
+//const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const apiKey = "AIzaSyCt3D_qHvxmUaD5_0fauXKSe9XTX_29V-E"
+const libraries = ["places"]
 
-const Map = ({ address }) => {
+const Map = ({ coordinates }) => {
   const [latitude, setLatitude] = useState(-34.55881726737178);
   const [longitude, setLongitude] = useState(-58.47476996280374);
 
-  useEffect(async () => {
-    if (address) {
-      try {
-        const res = await axios
-          .get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
-          )
-          .then((res) => {
-            setLatitude(res.data.results[0].geometry.location.lat);
-            setLongitude(res.data.results[0].geometry.location.lng);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }, [address]);
+  const { isLoaded, loadError} = useLoadScript({
+    id: "alchemy-location",
+    googleMapsApiKey: `${apiKey}`,
+    libraries,
+  })
+
+  if (loadError) return <p>Error al cargar el mapa.</p>
+  if (!isLoaded) return <p>Cargando Mapa....</p>
+
+  // const { isLoaded } = useJsApiLoader({
+  //   id: "google-map-script",
+  //   googleMapsApiKey: `${apiKey}`,
+  //   libraries
+  // })
+
+  // useEffect(async () => {
+  //   if (coordinates) {
+  //     try {
+  //       const res = await axios
+  //         .get(
+  //           `https://maps.googleapis.com/maps/api/geocode/json?address=${coordinates}&key=${apiKey}`
+  //         )
+  //         .then((res) => {
+  //           console.log(res.data.results[0].geometry.location.lat)
+  //           setLatitude(res.data.results[0].geometry.location.lat);
+  //           setLongitude(res.data.results[0].geometry.location.lng);
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // }, [coordinates]);
 
   return (
     <div style={{ height: "60vh", width: "620px", padding: "20px" }}>
@@ -39,11 +58,15 @@ const Map = ({ address }) => {
           lat: latitude,
           lng: longitude,
         }}
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true
+        }}
       >
         <Marker position={{ lat: latitude, lng: longitude }} />
       </GoogleMap>
     </div>
-  );
+  )
 };
 
 export default Map;
