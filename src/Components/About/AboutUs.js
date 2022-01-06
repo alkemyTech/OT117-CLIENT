@@ -1,3 +1,4 @@
+import React from "react";
 import Title from "../Title/Title";
 import { Box, Grid, Container, Typography } from "@mui/material";
 import "../../Styles/Container.css";
@@ -8,11 +9,7 @@ import {
 } from "react-social-plugins";
 import AboutUsMembers from "./AboutUsMembers";
 import nosotros from "../../Assets/TitleImages/nosotros.jpg";
-import logo from "../../Assets/Logo/logo.png";
 import nosotrossvg from "../../Assets/waves/nosotros.svg";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useEffect } from "react";
 import "../../Styles/AboutLinks.css"
 
 const AboutUs = () => {
@@ -47,9 +44,6 @@ const AboutUs = () => {
           </Box>
         </div>
       </div>
-      <Grid className="ContenedorTitulo">
-        {/* <img src={logo} alt="Logo"  className="MiembrosLogo"/> */}
-      </Grid>
       <div className="ContenedorCards">
         <AboutUsMembers />
       </div>
