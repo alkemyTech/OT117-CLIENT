@@ -4,9 +4,17 @@ import styled from "styled-components";
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 const libraries = ["places"]
 const MapContainer = styled.div`
-  --container-padding: 1rem;
-  height: 20rem;
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  position: relative;
+
+  &::before{
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
 `
 const Map = ({ coordinates }) => {
   const { isLoaded, loadError} = useLoadScript({
@@ -20,10 +28,11 @@ const Map = ({ coordinates }) => {
 
   return (
     <MapContainer>
-      {/* <GoogleMap
+      <GoogleMap
         mapContainerStyle={{
           height: "100%",
           width: "100%",
+          position: "absolute"
         }}
         zoom={15}
         center={{
@@ -40,7 +49,7 @@ const Map = ({ coordinates }) => {
             lat: coordinates[0],
             lng: coordinates[1]
           }} />
-      </GoogleMap> */}
+      </GoogleMap>
     </MapContainer>
   )
 };
