@@ -1,7 +1,8 @@
 .form-container {
-  padding: 35px;
-  width: 650px;
-  margin: 80px auto;
+  --form-padding: 1rem;
+  padding: 0 var(--form-padding);
+  width: calc(100% - var(--form-padding) * 2);
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
   gap: 15px;
