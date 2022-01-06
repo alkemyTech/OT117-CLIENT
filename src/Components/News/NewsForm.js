@@ -48,7 +48,7 @@ const NewsForm = () => {
   };
 
   useEffect(async () => {
-    const { data } = await getCategories();
+    const data = await getCategories();
     setCategories(data);
   }, []);
 
