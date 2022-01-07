@@ -21,19 +21,21 @@ const Title = (props) => {
         key={id}
         sx={{
           backgroundImage: `url(${titleImage})`,
+          display:"flex",
+          justifyContent:"center",
+          marginTop:"1em",
           position: "relative",
-          height: "250px",
         }}
       >
         <Typography
           variant="h3"
           sx={{
-            fontSize: { lg: "60px", md: "40px", xs: "35px" },
+            fontSize: { lg: "35px", md: "32px", xs: "30px" },
             color: "white",
             textShadow: "black 1px 0 6px",
             position: "absolute",
-            bottom: "40px",
-            right: { lg: "100px", md: "40px", xs: "30px" },
+            bottom: "0%",
+            margin: "1em",
             textTransform: "uppercase",
             fontWeight: "600",
             letterSpacing: "0.5rem",
