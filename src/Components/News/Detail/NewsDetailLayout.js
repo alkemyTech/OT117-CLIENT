@@ -81,6 +81,7 @@ const NewsDetailLayout = () => {
           justifyContent:"center"}}
         >
           <Card className="cardStyle" sx={{
+            pointerEvents:"none",
             margin:"0",
             marginTop:"2em",
             width:{
