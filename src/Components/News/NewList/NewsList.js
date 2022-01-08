@@ -15,6 +15,7 @@ const NewsList = () => {
     <div>
       <Title title="Novedades" image={novedades} />
       <CardSection getInformation={getAll} clickeable={{to:'/novedades'}} />
+      <h1 style={{ textAlign: "center" }}>Último evento</h1>
       <VideoCard
         title={videoLastEvent.name}
         video={videoLastEvent.video}
