@@ -90,4 +90,4 @@ const Seeker = ({ endpointName, minLength }) => {
   );
 };
 
-export {Seeker};
+export default Seeker;

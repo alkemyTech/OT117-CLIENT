@@ -9,15 +9,9 @@ import { videoLastEvent } from "./videoEvent";
 import CardSection from "../../Home/CardsSection";
 import { getAll } from "../../../Services/newsServices";
 import novedades from "../../../Assets/TitleImages/novedades.jpg";
-import {Seeker} from "../../Seeker/Seeker";
+import Seeker from "../../Seeker/Seeker";
 
 const NewsList = () => {
-
-  const [emptyValue,setEmptyValue] = useState(true);
-
-  const emptyForm = () =>{
-    console.log("holis");
-  }
 
   return (
     <div>
