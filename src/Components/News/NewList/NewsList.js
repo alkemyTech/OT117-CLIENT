@@ -16,7 +16,7 @@ const NewsList = () => {
   return (
     <div>
       <Title title="Novedades" image={novedades} />
-      <Seeker endpointName={"news"} minLength={3} onChange={emptyForm}/>
+      <Seeker endpointName={"news"} minLength={3}/>
       <h1 style={{ textAlign: "center", marginTop: "100px" }}>Último evento</h1>
       <VideoCard
         title={videoLastEvent.name}
