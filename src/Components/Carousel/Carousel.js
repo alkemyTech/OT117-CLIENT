@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { getImagesSlides } from "../../Services/slidesService";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -13,7 +13,6 @@ import SwiperCore, {
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "../../Styles/Carousel.css";
-import { setCKEditorText } from "../../Components/common/ckEditor/setCKEditorText";
 SwiperCore.use([Parallax, Autoplay, Navigation, Pagination, Scrollbar, A11y]);
 const Carousel = () => {
   const [data, setData] = useState([]);
@@ -47,7 +46,9 @@ const Carousel = () => {
           <Box key={index} sx={{}} data-swiper-parallax="-23%">
             <SwiperSlide
               style={{
-                backgroundImage: `url(${item.image})`,
+                backgroundImage: `url(${item.image}), linear-gradient(180deg, rgba(7,49,58,0) 20%,rgba(17,17,17,0.6) 100%)`,
+                backgroundBlendMode: "multiply",
+                backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: "580px",
                 backgroundRepeat: "no-repeat",
@@ -65,36 +66,24 @@ const Carousel = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    // flexDirection: "column",
+                    flexDirection: "column",
                     alignItems: "center",
                     padding: "0 0 0 50px",
                     marginTop: "15%",
+                    marginLeft: { xs: 4, md: 18 },
                   }}
                 >
-                  <h2
-                    style={{
+                  <Typography
+                    sx={{
                       color: "#fff",
-                      fontSize: "2.5rem",
+                      fontSize: { xs: "1.8rem", md: "2.8rem" },
                       fontWeight: "bold",
-                      marginRight: "10px",
+                      marginBottom: { xs: "30px", md: "30px" },
                     }}
                     data-swiper-parallax="-300"
                   >
                     {item.name}
-                  </h2>
-                  <Box
-                    sx={{
-                      color: "#fff",
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                      marginLeft: "10px",
-                    }}
-                    data-swiper-parallax="-100"
-                  >
-                    <p>
-                      {item.description && setCKEditorText(item, "description")}
-                    </p>
-                  </Box>
+                  </Typography>
                 </Box>
               </SwiperSlide>
             </SwiperSlide>
