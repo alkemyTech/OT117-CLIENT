@@ -1,22 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import membersApiActions from "../../Services/membersService";
+import * as categoriesServices from "../../Services/categoriesServices";
 
-const aboutUsInitialState = {
+const categoriesInitialState = {
   loading: false,
   data: [],
   error: "",
 };
 
-export const getAll = createAsyncThunk("aboutUs/getAll",membersApiActions.getMembers);
-export const create = createAsyncThunk("aboutUs/create",membersApiActions.createMember);
-export const getById = createAsyncThunk("aboutUs/getById",membersApiActions.getMember);
-export const update = createAsyncThunk("aboutUs/update",(member)=>membersApiActions.updateMember(member.member,member.memberId));
-export const updateOrCreate = createAsyncThunk("aboutUs/updateOrCreate",(member)=>membersApiActions.updateOrCreate(member.member,member.memberId));
-export const deleteById = createAsyncThunk("aboutUs/deleteById",membersApiActions.removeMember);
+export const getAll = createAsyncThunk("categories/getAll",categoriesServices.getCategories);
+export const create = createAsyncThunk("categories/create",categoriesServices.createCategory);
+export const getById = createAsyncThunk("categories/getById",categoriesServices.getCategory);
+export const update = createAsyncThunk("categories/update",(category)=>categoriesServices.updateCategory(category.id,category.category));
+export const updateOrCreate = createAsyncThunk("categories/updateOrCreate",(category)=>categoriesServices.createOrUpdate(category.id,category.category));
+export const deleteById = createAsyncThunk("categories/deleteById",categoriesServices.removeCategory);
 
-const aboutUsSlice = createSlice({
-  name: "aboutUs",
-  initialState: aboutUsInitialState,
+const categoriesSlice = createSlice({
+  name: "categories",
+  initialState: categoriesInitialState,
   extraReducers: {
     [getAll.pending]: (state) => {
       return {
@@ -153,4 +153,4 @@ const aboutUsSlice = createSlice({
     },
   },
 });
-export default aboutUsSlice.reducer;
+export default categoriesSlice.reducer;
