@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback, lazy, Suspense } from "react";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import NewsTitle from "./NewsTittle";
 import { getNewById } from "../../../Services/newsServices";
 import LoadingSpinner from "../../../Utils/loadingSpinner";
 import "../../../Styles/CardStyle.css";
 import { useDispatch, useSelector } from "react-redux";
 import * as newsActions from "../../../app/NewsReducer/newsReducer";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import IconButton from '@mui/material/IconButton';
 import {
   Card,
   CardContent,
@@ -28,6 +30,7 @@ const NewsDetailLayout = () => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
+  const history = useHistory();
 
   const news = useSelector((state) => state.news.currentNews);
   const isLoading = useSelector((state) => state.news.loading);
@@ -43,29 +46,77 @@ const NewsDetailLayout = () => {
 
   return (
     <div>
+      <IconButton sx={{
+        cursor:"pointer",
+        width:{
+          xs:"3em",
+          md:"4em"},
+        height:{
+          xs:"3em",
+          md:"4em"}}}
+        onClick={()=>history.push("/novedades")}
+        >
+        <ArrowBackIcon sx={{
+        width:{
+          xs:"3em",
+          md:"4em"},
+          height:{
+            xs:"3em",
+            md:"4em"}}}
+          />
+      </IconButton>
       {isLoading
-      ? <Box className="spinner" sx={{display:'flex',flexDirection:'row',justifyContent:'center',zIndex:99,bgcolor:'transparent'}}>
+      ? <Box className="spinner" sx={{
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'center',
+        zIndex:99,bgcolor:'transparent'}}
+        >
           <LoadingSpinner />
         </Box>
        :
-        <div>
-          <Card className="cardStyle">
+        <Box sx={{
+          width:"100%",
+          display:"flex",
+          justifyContent:"center"}}
+        >
+          <Card className="cardStyle" sx={{
+            pointerEvents:"none",
+            margin:"0",
+            marginTop:"2em",
+            width:{
+              xs:"20em",
+              md:"30em"},
+            height:{
+              xs:"80%"
+            }
+            }}>
             <CardActionArea>
-              <CardMedia>
+              <CardMedia sx={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center"}}>
                 <Suspense fallback={
-                  <Box className="spinner" sx={{display:'flex',flexDirection:'row',justifyContent:'center',zIndex:99,bgcolor:'transparent'}}>
+                  <Box className="spinner" sx={{
+                    display:'flex',
+                    flexDirection:'row',
+                    justifyContent:'center',
+                    zIndex:99,bgcolor:'transparent'}}
+                  >
                     <LoadingSpinner />
                   </Box>
                 }>
                   <Title title={news.name} image={news.image} key={news.id} />
                 </Suspense>
               </CardMedia>
-              <CardContent>
+              <CardContent sx={{
+                display:"flex",
+                justifyContent:"center"}}>
                 <Typography>{newsDescription}</Typography>
               </CardContent>
             </CardActionArea>
           </Card>
-        </div>
+        </Box>
       }
     </div>
   );

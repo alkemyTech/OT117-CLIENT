@@ -1,5 +1,10 @@
 import Swal from 'sweetalert2';
 
+//generic alert message
+export const GenericAlertError = () =>{
+  return AlertError("Ups...algo salio mal");
+}
+
 // error alert
 
 const Toast = Swal.mixin({
@@ -16,7 +21,7 @@ const Toast = Swal.mixin({
 export const AlertError = (message,status) => {
   return Toast.fire({
     icon: 'error',
-    text: status ? `${message} - status: ${status}` : message
+    text: status ? `${message} - status: ${status}` : `${message}`
   });
 };
 

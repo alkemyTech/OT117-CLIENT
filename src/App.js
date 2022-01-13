@@ -12,7 +12,9 @@ import { GlobalTheme } from "./Styles/Theme";
 import PublicRouter from "./Components/PublicWeb/PublicRouter";
 import UsersForm from './Components/Users/UsersForm'
 import PublicRoute from './Components/PublicWeb/PublicRoute';
+import NotUserRoute from "./Components/PrivateRoute/NotUserRoute";
 function App() {
+
   return (
     <>
       <Provider store={store}>
@@ -23,8 +25,8 @@ function App() {
               atLeave={{ opacity: 1 }}
               atActive={{ opacity: 1 }}
             >
-              <PublicRoute path="/login" component={LoginForm} />
-              <PublicRoute path="/register" component={UsersForm}/>
+              <NotUserRoute path="/login" component={LoginForm} />
+              <NotUserRoute path="/register" component={UsersForm}/>
               <PrivateRoute path="/backoffice" component={BackofficeRouter} />
               <PublicRouter />
             </AnimatedSwitch>

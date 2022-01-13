@@ -8,7 +8,7 @@ import {
     VolumeDown,
     VolumeUp
 } from "@mui/icons-material";
-const CustomVideoPlayerControls = ({playing,volume,currentSeek,handlePlay,handlePause,handleSeekChange,handleVolumeChange,durationOfVideo}) => {
+const CustomVideoPlayerControls = ({playing,volume,muted,currentSeek,handlePlay,handlePause,handleSeekChange,handleVolumeChange,durationOfVideo,handleMute}) => {
 
     return (
         <div>
@@ -36,16 +36,16 @@ const CustomVideoPlayerControls = ({playing,volume,currentSeek,handlePlay,handle
                 />
             </div>
             <div style={{display:'flex', alignItems:'center'}}>
-                <div>
+                <div onClick={(e)=>handleMute(e)}>
                     {
-                        (volume) != 0 ? volume > 50 ? <VolumeUp/> : <VolumeDown/> : <VolumeOff/>
+                        (muted || volume==0)? <VolumeOff/> : (volume <= 50)? <VolumeDown/> : <VolumeUp/>
                     }
                 </div>
                 <input
                     type='range'
                     min={0}
                     max={100}
-                    value={volume}
+                    value= {volume}
                     onInput={(e)=>handleVolumeChange(e)}
                 />
             </div>
