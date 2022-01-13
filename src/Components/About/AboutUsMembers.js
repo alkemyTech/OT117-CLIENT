@@ -21,8 +21,6 @@ const AboutUsMembers = () => {
 
   return (
     <Container
-      data-aos="fade-up"
-      data-aos-duration="3000"
       sx={{
         display: "flex",
         flexDirection: "column",
