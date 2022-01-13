@@ -12,8 +12,18 @@ import "../FormStyles.css";
 const validate = (values) => {
   const errors = {};
   const titleIsShort = validations.isShort(values.name, 4);
+  const imageExist = values.image;
   if (titleIsShort) {
     errors.name = "El Titulo debe ser mas largo";
+  }
+  if (!values.name) {
+    errors.name = "Debe agregar un titulo";
+  }
+  if (!imageExist) {
+    errors.image = "Debe agregar una imagen";
+  }
+  if (!values.description) {
+    errors.description = "Debe agregar una descripcion";
   }
   return errors;
 };
