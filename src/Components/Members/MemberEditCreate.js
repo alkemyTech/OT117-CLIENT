@@ -12,7 +12,7 @@ import { showErrorAlert, showSuccessAlert } from '../../Utils/alerts';
 import '../FormStyles.css';
 import { useDispatch } from 'react-redux';
 import { URLFileFormater } from '../../Utils/formatters';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const EditCreateMembers = () => {
   const [member, setMember] = useState({
@@ -24,6 +24,8 @@ const EditCreateMembers = () => {
   });
 
   const { memberId } = useParams();
+
+  const history = useHistory();
 
   const social_media = [member.facebookUrl, member.linkedinUrl];
 
@@ -69,6 +71,9 @@ const EditCreateMembers = () => {
         (memberId !== undefined && showSuccessAlert('Member update'))) &
         dispatch(membersActions.updateOrCreate({ member, memberId }));
     }
+    setTimeout(() => {
+      history.push("/backoffice/members");
+    }, 1500);
   };
 
   const handleError = () => {
