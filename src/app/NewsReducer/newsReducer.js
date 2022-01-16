@@ -42,75 +42,137 @@ const newsSlice = createSlice({
   },
   extraReducers: {
     [getAll.pending]: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     [getAll.fulfilled]: (state, action) => {
-      state.data = action.payload;
-      state.loading = false;
+      return {
+        ...state,
+        data: action.payload,
+        loading: false,
+      };
     },
     [getAll.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      return {
+        ...state,
+        loading: false,
+        error: action.error.message,
+      };
     },
     [getById.pending]: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     [getById.fulfilled]: (state, action) => {
-      state.currentNews = action.payload;
-      state.loading = false;
+      return {
+        ...state,
+        currentNews: action.payload,
+        loading: false,
+      };
     },
     [getById.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      return {
+        ...state,
+        loading: false,
+        error: action.error.message,
+      };
     },
     [create.pending]: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     [create.fulfilled]: (state, action) => {
-      state.data = [...state.data, action.payload];
-      state.loading = false;
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+        loading: false,
+      };
     },
     [create.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      return {
+        ...state,
+        loading: false,
+        error: action.error.message,
+      };
     },
     [update.pending]: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     [update.fulfilled]: (state, action) => {
-      const newsForUpdate = state.data.findIndex(
-        (element) => element.id == action.payload.id
-      );
-      state.data[newsForUpdate] = action.payload;
-    },
+      const newData = state.data.map((element) =>
+                  element.id === action.payload.id ? action.payload : element);
+      return {
+              ...state,
+              data: newData,
+              loading: false,
+            };
+          },
     [update.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      return {
+        ...state,
+        loading: false,
+        error: action.error.message,
+      };
     },
     [createOrUpdate.pending]: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     [createOrUpdate.fulfilled]: (state, action) => {
-      const payloadNews = state.data.findIndex(
-        (element) => element.id == action.payload.id
-      );
-      if (payloadNews >= 0) state.data[payloadNews] = action.payload;
-      else state.data = [...state.data, action.payload];
+      const isUpdate = state.data.includes(action.payload.id);
+      if (isUpdate){
+        const newData = state.data.map((element) =>
+        element.id === action.payload.id ? action.payload : element);
+        return {
+            ...state,
+            data: newData,
+            loading: false,
+        };
+      }
+
+      else return {
+        ...state,
+        data: [...state.data, action.payload],
+        loading: false,
+      };
     },
     [createOrUpdate.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      return {
+        ...state,
+        loading: false,
+        error: action.error.message,
+      };
     },
     [deletebyId.pending]: (state) => {
-      state.loading = true;
+      return {
+        ...state,
+        loading: true,
+      };
     },
     [deletebyId.fulfilled]: (state, action) => {
-      state.data = state.data.filter((news) => news.id != action.meta.arg);
-      state.loading = false;
+      return {
+        ...state,
+      data: [...state.data.filter((news) => news.id != action.meta.arg)],
+      loading: false,
+      }
     },
     [deletebyId.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+      return {
+        ...state,
+        loading: false,
+        error: action.error.message,
+      };
     },
   },
 });
