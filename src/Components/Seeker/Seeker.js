@@ -15,6 +15,8 @@ import {
 
 import CustomCard from "../Card/CustomCard";
 import { searchIn } from "../../Services/seekerService";
+import { setCKEditorText } from "../../Components/common/ckEditor/setCKEditorText";
+
 
 const Seeker = ({ endpointName, minLength }) => {
   const [targetValue, setTargetValue] = useState("");
@@ -27,6 +29,9 @@ const Seeker = ({ endpointName, minLength }) => {
 
   const showresults = async () => {
     setIsLoading(true);
+    if (targetValue ===""){
+      setTargetValue(" ");
+    }
     await searchIn(endpointName, targetValue, minLength).then((res) => {
       setResult(res);
       setIsLoading(false);
@@ -62,8 +67,13 @@ const Seeker = ({ endpointName, minLength }) => {
               <Grid item xs={6} md={4} key={element.id}>
                 <CustomCard
                   title={element.name}
-                  image={element.image}
-                  description={element.description}
+                  img={element.image}
+                  description={
+                  (element.content && setCKEditorText(element, "content")) ||
+                  (element.description && setCKEditorText(element, "description"))
+                }
+                lines={element.description && 3}
+                route={`${location.pathname}/${element.id}`}
                 />
               </Grid>
             ))}

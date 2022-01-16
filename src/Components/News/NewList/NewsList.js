@@ -9,13 +9,16 @@ import { videoLastEvent } from "./videoEvent";
 import CardSection from "../../Home/CardsSection";
 import { getAll } from "../../../Services/newsServices";
 import novedades from "../../../Assets/TitleImages/novedades.jpg";
+import Seeker from "../../Seeker/Seeker";
 
 const NewsList = () => {
+
   return (
     <div>
       <Title title="Novedades" image={novedades} />
-      <CardSection getInformation={getAll} clickeable={{to:'/novedades'}} />
-      <h1 style={{ textAlign: "center" }}>Último evento</h1>
+      <Seeker endpointName={"news"} minLength={3}/>
+      <h1 style={{ textAlign: "center", marginTop: "100px" }}>Último evento</h1>
+
       <VideoCard
         title={videoLastEvent.name}
         video={videoLastEvent.video}
