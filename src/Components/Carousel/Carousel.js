@@ -53,6 +53,7 @@ const Carousel = () => {
                 height: "580px",
                 backgroundRepeat: "no-repeat",
                 boxSizing: "border-box",
+                textShadow: "black 1px 0 6px",
               }}
             >
               <SwiperSlide

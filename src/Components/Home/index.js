@@ -8,15 +8,16 @@ import { errorMessage } from "../error";
 import TestimonialsSection from "./TestimonialsSection";
 
 const Home = () => {
-  const [welcomeText, setWelcomeText] = useState("");
+  const [welcomeText, setWelcomeText] = useState("Bienvenido a Somos más!");
   const [sectionScroll, setSectionScroll] = useState(false);
-  useEffect(() => {
-    getOrganizationInformation()
-      .then((res) => setWelcomeText(res.data.welcome_text))
-      .catch((err) => {
-        errorMessage(err);
-      });
-  }, []);
+
+  // useEffect(() => {
+  //   getOrganizationInformation()
+  //     .then((res) => setWelcomeText(res.data.welcome_text))
+  //     .catch((err) => {
+  //       errorMessage(err);
+  //     });
+  // }, []);
   useEffect(() => {
     const showTestimonial = () => {
       const bodyHeight =
