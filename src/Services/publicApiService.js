@@ -2,7 +2,7 @@ import axios from "axios";
 
 const config = {
   headers: {
-    Group: 91, //Aqui va el ID del equipo!!
+    Group: 117, //Aqui va el ID del equipo!!
   },
 };
 
@@ -27,18 +27,18 @@ const publicGet = async (url, id) => {
   const idPlaceholder = id ? `/${id}` : "";
   const { data } = await axios
     .get(`${url}${idPlaceholder}`)
-    .then((res)=>console.log(res))
-    .catch((err)=>console.log(err));
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
   return data;
 };
 
-const Post = async (route,body) => {
-        try{
-          const data = await axios.post(route,body);
-          return data
-        }catch(error) {
-          return error
-        }
-      }
+const Post = async (route, body) => {
+  try {
+    const data = await axios.post(route, body);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 
-export {Post, Get, publicGet};
+export { Post, Get, publicGet };
