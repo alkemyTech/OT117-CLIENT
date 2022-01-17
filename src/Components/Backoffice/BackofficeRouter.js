@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import EditHomeForm from './Home/EditHomeForm';
 import MembersResults from './Members/MembersResults';
 import ActivitiesTable from './ActivitiesBackOffice/ActivitiesTable';
