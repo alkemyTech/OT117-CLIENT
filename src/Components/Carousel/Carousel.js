@@ -77,9 +77,11 @@ const Carousel = () => {
                   <Typography
                     sx={{
                       color: "#fff",
-                      fontSize: { xs: "1.8rem", md: "2.8rem" },
+                      fontSize: { xs: "1.5rem", md: "2.5rem" },
                       fontWeight: "bold",
                       marginBottom: { xs: "30px", md: "30px" },
+                      letterSpacing: "0.5rem ",
+                      textTransform: "uppercase",
                     }}
                     data-swiper-parallax="-300"
                   >
