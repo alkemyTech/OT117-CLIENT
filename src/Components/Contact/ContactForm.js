@@ -47,10 +47,12 @@ const ContactForm = () => {
       setCoordinates(JSON.parse(response.data.address));
     });
   }, []);
+
   return (
     <form className="form-container" onSubmit={formik.handleSubmit}>
-      {inputValues.map((inputValues) => (
+      {inputValues.map((inputValues, index) => (
         <GenericInput
+          key={index}
           name={inputValues.english}
           label={inputValues.english}
           type={inputValues.type}
