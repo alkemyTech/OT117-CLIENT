@@ -7,15 +7,29 @@ const EditHomeItem = ({ item, slidesIds, setSlidesIds }) => {
   const ShowErrorAlert = () => {
     Swal.fire("Ya seleccionaste las 3 imágenes!");
   };
-
+  const ShowSuccess = (msg) => {
+    Swal.fire({
+      title: 'Exito!',
+      text: msg,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    })
+  }
   const handleSelectImage = () => {
-    slidesIds.length < 3
+    if (slidesIds.length<3){
+      setSlidesIds([...slidesIds, item.id]);
+      ShowSuccess('Imagen seleccionada');
+    }else{
+      ShowErrorAlert();
+    }
+    /*slidesIds.length < 3
       ? setSlidesIds([...slidesIds, item.id])
-      : ShowErrorAlert();
+      : ShowErrorAlert();*/
   };
 
   const handleRemoveSelectedImage = () => {
-    DeleteSlide(item.id)
+    DeleteSlide(item.id);
+    ShowSuccess('Imagen eliminada');
   }
 
   return (
