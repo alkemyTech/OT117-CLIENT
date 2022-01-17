@@ -1,45 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as newsServices from "../../Services/newsServices";
+import * as categoriesServices from "../../Services/categoriesServices";
 
-const newsInitialState = {
+const categoriesInitialState = {
   loading: false,
   data: [],
   error: "",
-  currentNews: {
-    name: "",
-    content: "",
-    category_id: "",
-    image: "",
-  },
 };
 
-export const getAll = createAsyncThunk("news/getAll", newsServices.getAll);
+export const getAll = createAsyncThunk("categories/getAll",categoriesServices.getCategories);
+export const create = createAsyncThunk("categories/create",categoriesServices.createCategory);
+export const getById = createAsyncThunk("categories/getById",categoriesServices.getCategory);
+export const update = createAsyncThunk("categories/update",(category)=>categoriesServices.updateCategory(category.id,category.category));
+export const updateOrCreate = createAsyncThunk("categories/updateOrCreate",(category)=>categoriesServices.createOrUpdate(category.id,category.category));
+export const deleteById = createAsyncThunk("categories/deleteById",categoriesServices.removeCategory);
 
-export const getById = createAsyncThunk("news/getById", newsServices.getById);
-
-export const create = createAsyncThunk("news/create", newsServices.create);
-
-export const update = createAsyncThunk("news/update", (news) =>
-  newsServices.update(news.news, news.newsid)
-);
-
-export const createOrUpdate = createAsyncThunk("news/createOrUpdate", (news) =>
-  newsServices.createOrUpdate(news.news, news.newsid)
-);
-
-export const deletebyId = createAsyncThunk(
-  "news/delete",
-  newsServices.deleteByid
-);
-
-const newsSlice = createSlice({
-  name: "news",
-  initialState: newsInitialState,
-  reducers: {
-    cleanCurrentState: (state) => {
-      state.currentNews = { name: "", content: "", category_id: "", image: "" };
-    },
-  },
+const categoriesSlice = createSlice({
+  name: "categories",
+  initialState: categoriesInitialState,
   extraReducers: {
     [getAll.pending]: (state) => {
       return {
@@ -55,6 +32,26 @@ const newsSlice = createSlice({
       };
     },
     [getAll.rejected]: (state, action) => {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    },
+    [create.pending]: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    [create.fulfilled]: (state, action) => {
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+        loading: false,
+      };
+    },
+    [create.rejected]: (state, action) => {
       return {
         ...state,
         loading: false,
@@ -81,26 +78,6 @@ const newsSlice = createSlice({
         error: action.error.message,
       };
     },
-    [create.pending]: (state) => {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    [create.fulfilled]: (state, action) => {
-      return {
-        ...state,
-        data: [...state.data, action.payload],
-        loading: false,
-      };
-    },
-    [create.rejected]: (state, action) => {
-      return {
-        ...state,
-        loading: false,
-        error: action.error.message,
-      };
-    },
     [update.pending]: (state) => {
       return {
         ...state,
@@ -115,7 +92,7 @@ const newsSlice = createSlice({
               data: newData,
               loading: false,
             };
-          },
+    },
     [update.rejected]: (state, action) => {
       return {
         ...state,
@@ -123,13 +100,14 @@ const newsSlice = createSlice({
         error: action.error.message,
       };
     },
-    [createOrUpdate.pending]: (state) => {
+    [updateOrCreate.pending]: (state) => {
+      state.loading = true;
       return {
         ...state,
         loading: true,
       };
     },
-    [createOrUpdate.fulfilled]: (state, action) => {
+    [updateOrCreate.fulfilled]: (state, action) => {
       const isUpdate = state.data.includes(action.payload.id);
       if (isUpdate){
         const newData = state.data.map((element) =>
@@ -140,34 +118,33 @@ const newsSlice = createSlice({
             loading: false,
         };
       }
-
       else return {
         ...state,
         data: [...state.data, action.payload],
         loading: false,
       };
     },
-    [createOrUpdate.rejected]: (state, action) => {
+    [updateOrCreate.rejected]: (state, action) => {
       return {
         ...state,
         loading: false,
         error: action.error.message,
       };
     },
-    [deletebyId.pending]: (state) => {
+    [deleteById.pending]: (state) => {
       return {
         ...state,
         loading: true,
       };
     },
-    [deletebyId.fulfilled]: (state, action) => {
+    [deleteById.fulfilled]: (state, action) => {
       return {
         ...state,
       data: [...state.data.filter((news) => news.id != action.meta.arg)],
       loading: false,
       }
     },
-    [deletebyId.rejected]: (state, action) => {
+    [deleteById.rejected]: (state, action) => {
       return {
         ...state,
         loading: false,
@@ -176,5 +153,4 @@ const newsSlice = createSlice({
     },
   },
 });
-export const { cleanCurrentState } = newsSlice.actions;
-export default newsSlice.reducer;
+export default categoriesSlice.reducer;

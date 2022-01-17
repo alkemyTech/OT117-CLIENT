@@ -28,18 +28,13 @@ const CustomCard = ({
   const { push } = useHistory();
 
   return (
-    <Container sx={{ display: "inline-flex" }}>
       <Card
         to={route}
         component={route ? Link : ""}
         sx={{
-          width: 345,
-          m: 2,
-          boxShadow: 15,
-          borderRadius: 3,
-          display: "flex",
-          flexDirection: "column",
-          textDecoration: "none",
+            boxShadow: 15,
+            borderRadius: 3,
+            textDecoration: "none",
         }}
       >
         <CardMedia
@@ -83,8 +78,8 @@ const CustomCard = ({
             {description || ""}
           </Typography>
         </CardContent>
-        <CardActions>
-          {button ? (
+        {button &&
+          <CardActions>
             <Button
               size="small"
               color="button"
@@ -95,18 +90,16 @@ const CustomCard = ({
                 {button}
               </Typography>
             </Button>
-          ) : (
             <div></div>
-          )}
-          <a href={firstSocialLink} target="_blank">
-            {firstSocialLinkName&&<FacebookIcon sx={{ fontSize: 40, textDecoration: "none", color:"blue"}}/>}
-          </a>
-          <a href={secondSocialLink} target="_blank">
-            {secondSocialLinkName&&<LinkedInIcon sx={{ fontSize: 40, textDecoration: "none", color:"black" }} />}
-          </a>
-        </CardActions>
+            <a href={firstSocialLink} target="_blank">
+              {firstSocialLinkName&&<FacebookIcon sx={{ fontSize: 40, textDecoration: "none", color:"blue"}}/>}
+            </a>
+            <a href={secondSocialLink} target="_blank">
+              {secondSocialLinkName&&<LinkedInIcon sx={{ fontSize: 40, textDecoration: "none", color:"black" }} />}
+            </a>
+          </CardActions>
+        }
       </Card>
-    </Container>
   );
 };
 

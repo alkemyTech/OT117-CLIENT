@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { showErrorAlert } from '../Utils/alerts';
+import axios from "axios";
+import { showErrorAlert } from "../Utils/alerts";
 
 const config = {
   headers: {
-    Group: 91, //Aqui va el ID del equipo!!
+    Group: 117, //Aqui va el ID del equipo!!
   },
 };
 const getAuthorizationHeader = () => {
@@ -23,14 +23,14 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 const privateGet = async (url, id, params = {}) => {
-  const idPlaceholder = id ? `/${id}` : '';
+  const idPlaceholder = id ? `/${id}` : "";
   const { data } = await axiosInstance
     .get(`${url}${idPlaceholder}`, {
       params,
     })
     .catch(() =>
       showErrorAlert(
-        'No se pudo realizar la operación, por favor intente más tarde'
+        "No se pudo realizar la operación, por favor intente más tarde"
       )
     );
   return data;
@@ -39,13 +39,13 @@ const privateGet = async (url, id, params = {}) => {
 const privatePut = async (url, id, params) => {
   const getAuthorization = getAuthorizationHeader();
   if (!getAuthorization.Authorization) return;
-  const idPlaceholder = id ? `/${id}` : '';
+  const idPlaceholder = id ? `/${id}` : "";
   const { data } = await axiosInstance
     .put(`${url}${idPlaceholder}`, params)
     .then((res) => res.data)
     .catch(() =>
       showErrorAlert(
-        'No se pudo realizar la operación, por favor intente más tarde'
+        "No se pudo realizar la operación, por favor intente más tarde"
       )
     );
   return data;
@@ -54,13 +54,13 @@ const privatePut = async (url, id, params) => {
 const privatePatch = async (url, id, params) => {
   const getAuthorization = getAuthorizationHeader();
   if (!getAuthorization.Authorization) return;
-  const idPlaceholder = id ? `/${id}` : '';
+  const idPlaceholder = id ? `/${id}` : "";
   const { data } = await axiosInstance
     .patch(`${url}${idPlaceholder}`, params)
     .then((res) => res.data)
     .catch(() =>
       showErrorAlert(
-        'No se pudo realizar la operación, por favor intente más tarde'
+        "No se pudo realizar la operación, por favor intente más tarde"
       )
     );
   return data;
@@ -77,7 +77,7 @@ const privateDelete = async (url, id) => {
       .then((response) => response.data)
       .catch(() =>
         showErrorAlert(
-          'No se pudo realizar la operación, por favor intente más tarde'
+          "No se pudo realizar la operación, por favor intente más tarde"
         )
       );
   }
@@ -85,7 +85,7 @@ const privateDelete = async (url, id) => {
 
 const privatePost = async (url, data) => {
   const authorizationHeader = getAuthorizationHeader();
-  if (!authorizationHeader.Authorization) throw new Error('No token');
+  if (!authorizationHeader.Authorization) throw new Error("No token");
   return await axios
     .post(url, data, {
       headers: authorizationHeader,
@@ -93,33 +93,33 @@ const privatePost = async (url, data) => {
     .then((res) => res.data)
     .catch(() =>
       showErrorAlert(
-        'No se pudo realizar la operación, por favor intente más tarde'
+        "No se pudo realizar la operación, por favor intente más tarde"
       )
     );
 };
 
 const Get = () => {
   axios
-    .get('https://jsonplaceholder.typicode.com/users', config)
+    .get("https://jsonplaceholder.typicode.com/users", config)
     .then((res) => console.log(res))
     .catch(() =>
       showErrorAlert(
-        'No se pudo realizar la operación, por favor intente más tarde'
+        "No se pudo realizar la operación, por favor intente más tarde"
       )
     );
 };
 
 const privateGetReusable = async (url, id) => {
-  const idPlaceholder = id ? `/${id}` : '';
+  const idPlaceholder = id ? `/${id}` : "";
 
   const authorizationHeader = getAuthorizationHeader();
-  if (!authorizationHeader.Authorization) throw new Error('No token');
+  if (!authorizationHeader.Authorization) throw new Error("No token");
   try {
     const { data } = await axios.get(`${url}${idPlaceholder}`);
     return data;
   } catch (error) {
     showErrorAlert(
-      'No se pudo realizar la operación, por favor intente más tarde'
+      "No se pudo realizar la operación, por favor intente más tarde"
     );
   }
 };

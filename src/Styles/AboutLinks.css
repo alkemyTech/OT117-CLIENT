@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+
+.AboutLinks{
+    font-family: 'Viga', sans-serif;
+    font-size: 1.5em;
+    text-decoration: none;
+    margin:1em;
+}
+

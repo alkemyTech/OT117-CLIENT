@@ -5,8 +5,10 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import "../FormStyles.css";
 import Swal from 'sweetalert2'
 import {CreateSlide, EditSlide} from '../../Services/slidesService'
+import { useHistory } from "react-router";
 
 const SlidesForm = ({slide}) => {
+  const history = useHistory();
   const [initialSlides, setInitialSlides] = useState({
     name: slide?.name ?? '',
     description:slide?.description ?? '',
@@ -38,6 +40,9 @@ const SlidesForm = ({slide}) => {
     else {
       EditSlide(initialSlides)
     }
+    setTimeout(() => {
+      history.push("/backoffice/slides");
+    }, 1500);
   }
   const SetImageShorterUrl = (e) => {
           const imageFile = e.target.files[0]

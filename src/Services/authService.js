@@ -21,8 +21,6 @@ const registerUser = async (userData) => {
 const loginUser = async (loginData) => {
   try {
     const response = await axios.post(`${loginURL}`, loginData);
-    console.log("RESPUESTA", response);
-
     return response;
   } catch (error) {
     handleCatch(error);

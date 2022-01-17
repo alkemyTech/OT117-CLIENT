@@ -42,7 +42,9 @@ const Header = () => {
             </Box>
           ):
           (null)}
+        <Box sx={{position:'relative'}}>
         <NavLinksList horizontal navLinks={navLinks} campaignLinks={campaignLinks} isLogged={isLogged}/>
+        </Box>
       </Box>
         <List sx={{display:{xs:'none', lg:'flex'}, gap:'10px'}}>
           {isLogged

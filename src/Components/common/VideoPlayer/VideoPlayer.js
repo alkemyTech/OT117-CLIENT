@@ -12,8 +12,11 @@ const VideoPlayer = ({video}) => {
         muted:false
     });
     const refHostVideo = useRef();
+    const handleMute = () => {
+        setVideoState({...videoState,muted: !muted});
+    };
     const handleVolumeChange = ({target}) =>{
-        setVideoState({...videoState,volume:target.value / 100 , volumeBar: target.value});
+        setVideoState({...videoState,volume: target.value / 100 , volumeBar: target.value});
     };
     const handleOnProgress = ({playedSeconds}) =>{
         setVideoState({...videoState,currentSeek: playedSeconds});
@@ -40,16 +43,19 @@ const VideoPlayer = ({video}) => {
                 playing={isPlay}
                 ref={refHostVideo}
                 onProgress={handleOnProgress}
+                controls={false}
             />
             <CustomVideoPlayerControls
                 playing={isPlay}
                 volume={volumeBar}
+                muted={muted}
                 handlePlay={handlePlay}
                 handlePause={handlePause}
                 currentSeek = {currentSeek}
                 handleSeekChange={handleSeekChange}
                 handleVolumeChange={handleVolumeChange}
                 durationOfVideo={durationOfVideo}
+                handleMute={handleMute}
             />
         </div>
     );
