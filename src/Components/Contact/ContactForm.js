@@ -21,7 +21,7 @@ const validate = (values) => {
 };
 
 const ContactForm = () => {
-  const [coordinates, setCoordinates] = useState([]);
+  //const [coordinates, setCoordinates] = useState([]);
   const inputValues = [
     { type: "text", english: "name", spanish: "Nombre" },
     { type: "email", english: "email", spanish: "Email" },
@@ -42,11 +42,11 @@ const ContactForm = () => {
     onSubmit: (values) => createContact(values),
   });
 
-  useEffect(() => {
-    getOrganizationInformation().then((response) => {
-      setCoordinates(JSON.parse(response.data.address));
-    });
-  }, []);
+  // useEffect(() => {
+  //   getOrganizationInformation().then((response) => {
+  //     setCoordinates(JSON.parse(response.data.address));
+  //   });
+  // }, []);
 
   return (
     <form className="form-container" onSubmit={formik.handleSubmit}>
@@ -64,7 +64,7 @@ const ContactForm = () => {
           isTouched={formik.touched[inputValues.english]}
         />
       ))}
-      <Map coordinates={coordinates} />
+      {/* <Map coordinates={coordinates} /> */}
       <button className="submit-btn" type="submit">
         Enviar
       </button>

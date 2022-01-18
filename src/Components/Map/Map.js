@@ -2,7 +2,6 @@ import React from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import styled from "styled-components";
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-const libraries = ["places"]
 const MapContainer = styled.div`
   width: 100%;
   display: grid;
@@ -20,7 +19,6 @@ const Map = ({ coordinates }) => {
   const { isLoaded, loadError} = useLoadScript({
     id: "alchemy-location",
     googleMapsApiKey: `${apiKey}`,
-    libraries
   })
 
   if (loadError) return <p>Error al cargar el mapa.</p>
